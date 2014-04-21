@@ -232,7 +232,7 @@ static void get_permutability_constraints(const PlutoProg *prog){
         if(IS_RAR(deps[i]->type))
             continue;
         if(!depcst[i]){
-            depcst[i] = get_permutability_constraints_each_dep(deps[i], prog, );
+            depcst[i] = get_permutability_constraints_each_dep(deps[i], prog);
             total_rows += depcst[i]->nrows;
         }
     }
@@ -252,4 +252,25 @@ static void get_permutability_constraints(const PlutoProg *prog){
     return total;
 }
 
-static void get_permutable_hyperplance(const PlutoProg *prog, )
+static PlutoConstraints *refine_dep_constraints(PlutoConstraints *cst, int id, const PlutoProg *prog){
+    PlutoConstraints *rt = pluto_constraints_alloc(REFINED_CST_WIDTH, cst->nrows);
+    rt->nrows = cst->nrows;
+    rt->ncols = REFINED_CST_WIDTH;
+
+    for(int i = 0; i < rt->nrows; i++)
+        for(int j = 0; j < rt->ncols; j++)
+            rt->val[i][j] = 0;
+
+    int offset = id*(prog->npar+1);
+    for(int i = 0; i < rt->nrows; i++){
+        for(int j = 0; j < prog->npar+1; j++)
+            rt->val[i][j + offset] = cst->val[i][j];
+        for(int j = prog->npar+1; j < rt->ncols; j++)
+            rt->val[i][j] = cst->val[i][j];
+    }
+    return rt;
+}
+
+static void get_refined _permutablity_constraints(const PlutoProg *prog){
+    
+}
