@@ -90,7 +90,7 @@ float->void filter DropF(){
 	}
 }
 
-void->float genZero GenF(){
+void->float filter GenF(){
 	work push 1{
 		push(0);
 	}
