@@ -252,7 +252,7 @@ static void get_permutability_constraints(const PlutoProg *prog){
     return total;
 }
 
-static PlutoConstraints *refine_dep_constraints(PlutoConstraints *cst, int id, const PlutoProg *prog){
+static PlutoConstraints *refine_dep_constraints(PlutoConstraints *cst, int depID, const PlutoProg *prog){
     PlutoConstraints *rt = pluto_constraints_alloc(REFINED_CST_WIDTH, cst->nrows);
     rt->nrows = cst->nrows;
     rt->ncols = REFINED_CST_WIDTH;
@@ -272,5 +272,5 @@ static PlutoConstraints *refine_dep_constraints(PlutoConstraints *cst, int id, c
 }
 
 static void get_refined _permutablity_constraints(const PlutoProg *prog){
-    
+
 }
