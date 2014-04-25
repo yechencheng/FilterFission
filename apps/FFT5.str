@@ -28,7 +28,7 @@ float->float pipeline CombineDFT(int n){
 	}
 	add CombineDFT1(m);
   add splitjoin{
-    split roundrobin(n, n);
+    split roundrobin(m, m);
     add PassF();
     add PassF();
     join roundrobin(n, n);
