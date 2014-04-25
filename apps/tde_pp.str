@@ -90,6 +90,11 @@ float->void filter DropF(){
 	}
 }
 
+void->float genZero GenF(){
+	work push 1{
+		push(0);
+	}
+}
 
 float->float splitjoin Contract(int N, int B){
 	split roundrobin(2*N, 2*(B-N));
@@ -115,7 +120,7 @@ float->float filter Contract(int N, int B) {
 float->float splitjoin Expand(int N, int B){
 	split roundrobin(2*N, 0);
 	add PassF();
-	add PassF();
+	add GenF();
 	join roundrobin(2*N, 2*(B-N));
 }
 
@@ -172,9 +177,8 @@ float->float filter Expand(int N, int B) {
 float->float filter Multiply_by_float(int B, float m) {
     work pop 8 push 8 { 
 	for (int j = 0; j < 8; j++) {
-	    push(pop() * m);
-	    push(pop() * m);
-	}
+	    	push(pop() * m);
+		}
     }
 }
 
