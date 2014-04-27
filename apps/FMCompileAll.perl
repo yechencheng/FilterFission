@@ -1,9 +1,15 @@
 #!/usr/bin/perl
 
-($output)=$ARGV[0];
+(my $src, my $flag, my $output)=@ARGV;
+
 unless ($output) {
 	$output="a.out";
 }
+
+#compile as normal
+system("strc $src $flag -o $output");
+
+#get compiling error, turns to fix bug and continue compiling
 my $org="global.h";
 my $tmp="global.tmp.h";
 

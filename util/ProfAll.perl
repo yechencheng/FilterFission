@@ -17,11 +17,13 @@ elsif(@single){
 	ProfSingle(@_);
 }
 elsif($help){
-	print("ProfAll [--batch | --single sourceFloder]\n
+	print("ProfAll [--batch | --single sourceFloder] [--perf] [--massif] [--nocompile]\n
 			--batch : profile all apps\n
 			--single : profile single apps\n
 			--perf : profile cache miss\n
-			--massif : profile memory\n");
+			--massif : profile memory\n
+			--nocompile : do not carry compiling phase\n
+			");
 }
 
 sub ProfSingle{
@@ -78,15 +80,15 @@ sub CompileDirectlly{
 	system("strc $src $flag -o $output");
 }
 
-sub CompileWithMakefile{
+sub CompileWithPerl{
 	(my $src, my $flag, my $output)=@_;
 	#print "$flag\n";
 	system("./CompileAll.perl \"$flag\" $output");
 }
 
 sub CompileCode{
-	if(-e "Makefile"){
-		CompileWithMakefile(@_);
+	if(-e "CompileAll.perl"){
+		CompileWithPerl(@_);
 	}
 	else{
 		CompileDirectlly(@_);
@@ -132,7 +134,7 @@ sub RunTestWithThread{
 	unless($nocompile){
 		CompileCode($src, "--cluster $C $Cflag", $output);	
 	}
-	
+
 	if($perf){
 		print "perf detected\n";
 		PerfCache($output, "-i $itr $Rflag");
