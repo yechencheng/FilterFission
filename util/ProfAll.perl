@@ -1,40 +1,68 @@
 #!/usr/bin/perl
 use Cwd;
+use Getopt::Long;
 
-local @Task=(
-						#["beamformer", "BeamFormer1.str", "1000000"],
-						#["bitonic-sort", "BitonicSort2.str", "100000"],
-						#["des", "DES2.str", "1000000"],
-						#["filterbank", "FilterBank6.str", "100000"],
-						#["mpeg2","MPEGdecoder_nomessage_5_3.str", "1000000"],
-						#["serpent_full", "Serpent_full.str", "1000000"],
-						#["channelvocoder", "ChannelVocoder7.str", "100000"],
-						#["dct","DCT2.str", "1000000" ],
-						#["fft", "FFT5.str", "1000000"],
-						#["fm", "FMRadio5.str", "10000000"],
-						#["tde_pp", "tde_pp.str", "10"],
-						["sar", "sar.str", "10"],
-						);
+GetOptions ("single=s{3}" => \@single, #src,thread,itr
+			"batch" => \$batch,
+			"help" => \$help,
+			"perf" => \$perf,
+			"massif" => \$massif,
+			"nocompile" => \$nocompile
+			);
 
-local @list=("beamformer","bitonic-sort","des","filterbank","mpeg2","serpent_full","channelvocoder","dct","fft","fm");
-
-my $pwd = getcwd;
-local $log = "$pwd/LogProfAll";
-
-unless(-e $log){
-	system("touch $log");
+if($batch){
+	ProfAll(@_);
+}
+elsif(@single){
+	ProfSingle(@_);
+}
+elsif($help){
+	print("ProfAll [--batch | --single sourceFloder]\n
+			--batch : profile all apps\n
+			--single : profile single apps\n
+			--perf : profile cache miss\n
+			--massif : profile memory\n");
 }
 
-for my $t (@Task){
-	system("echo \"`date`\" >> $log");
+sub ProfSingle{
+	
+	RunTestWithThread("$single[0]", "$single[1]", "-u 1", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+}
 
-	(my $path, my $src, my $itr)=@$t;
+sub ProfAll{
+	local @Task=(
+							#["beamformer", "BeamFormer1.str", "1000000"],
+							#["bitonic-sort", "BitonicSort2.str", "100000"],
+							#["des", "DES2.str", "1000000"],
+							#["filterbank", "FilterBank6.str", "100000"],
+							#["mpeg2","MPEGdecoder_nomessage_5_3.str", "1000000"],
+							#["serpent_full", "Serpent_full.str", "1000000"],
+							#["channelvocoder", "ChannelVocoder7.str", "100000"],
+							#["dct","DCT2.str", "1000000" ],
+							#["fft", "FFT5.str", "1000000"],
+							#["fm", "FMRadio5.str", "10000000"],
+							["tde_pp", "tde_pp.str", "10"],
+							#["sar", "sar.str", "10"],
+							);
 
-	chdir("$path/streamit/");
-	#RunTest("$src", "-u 1", "$itr", " ", "--pages-as-heap=yes");
-	RunTest("$src", "-u 1", "$itr", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
-	#system("./CompileAll.perl");
-	chdir("$pwd");
+	my $pwd = getcwd;
+	local $log = "$pwd/LogProfAll";
+
+	unless(-e $log){
+		system("touch $log");
+	}
+
+	for my $t (@Task){
+		system("echo \"`date`\" >> $log");
+
+		(my $path, my $src, my $itr)=@$t;
+
+		chdir("$path/streamit/");
+		#RunTest("$src", "-u 1", "$itr", " ", "--pages-as-heap=yes");
+		RunTest("$src", "-u 1", "$itr", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+		#system("./CompileAll.perl");
+		chdir("$pwd");
+	}
 }
 
 sub MoveTarget{
@@ -72,6 +100,7 @@ sub PerfData{
 }
 
 sub PerfCache{
+	print "@_ \n";
 	(my $prog, my $progFlag) =@_;
 	for my $E (0 .. 2){
 		my $flag="stat -B -e cache-references,cache-misses,cycles,instructions,branches,faults,migrations";
@@ -85,27 +114,41 @@ sub MassifData{
 	#if(-e "massif.out.*"){
 	#	system("rm massif.out.*");
 	#}
-	system("valgrind3.9 --tool=massif $flag ./$prog $progFlag");
+	system("valgrind --tool=massif $flag ./$prog $progFlag");
+}
+
+sub LogInfo{
+	if($log){
+		system(" echo \"@_\" >> $log");
+	}
+}
+
+sub RunTestWithThread{
+	(my $src, my $C, my $Cflag, my $itr, my $Rflag, my $MassifFlag)=@_;
+	
+	$output="C$C.out";
+	LogInfo("`date`\t $src $output : BEGIN");
+
+	unless($nocompile){
+		CompileCode($src, "--cluster $C $Cflag", $output);	
+	}
+	
+	if($perf){
+		print "perf detected\n";
+		PerfCache($output, "-i $itr $Rflag");
+	}
+	if($massif){
+		print "Massif detected\n";
+		MassifData($MassifFlag, $output, "-i $itr $Rflag");
+	}
+
+	LogInfo("`date`\t $src : END");
 }
 
 sub RunTest{
-	(my $src, my $Cflag, my $itr, my $Rflag, my $MassifFlag)=@_;
+	(my $src, my @remain)=@_;
 
-	#my $massifItr=$itr/10;
 	for $C (1 .. 16){
-		$output="C$C.out";
-		system("echo \"`date`\t $src $output : BEGIN\" >> $log");
-		
-		CompileCode($src, "--cluster $C $Cflag", $output);
-		
-		if("--perf" ~~ @ARGV){
-			print "perf detected\n";
-			PerfCache($output, "-i $itr $Rflag");
-		}
-		if("--massif" ~~ @ARGV){
-			print "Massif detected\n";
-			MassifData($MassifFlag, $output, "-i $itr $Rflag");
-		}
-		system("echo \"`date`\t $src : END\" >> $log");
+		RunTestWithThread("$src $C @remain")
 	}
 }
