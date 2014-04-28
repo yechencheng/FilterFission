@@ -20,5 +20,6 @@ for my $C (1 .. 10){
 
 
 system("sed -i '10 a $str' $org");
+
 system("g++ -g -I/home/ycc/Software/streamit/streams//library/cluster -c -o combined_threads.o combined_threads.cpp");
 system("g++ -g -o $output combined_threads.o -L/home/ycc/Software/streamit/streams//library/cluster -lpthread -lcluster -lstdc++");
