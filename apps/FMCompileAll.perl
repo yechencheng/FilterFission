@@ -21,5 +21,5 @@ for my $C (1 .. 10){
 
 
 system("sed -i '10 a $str' $org");
-system("g++ -O3 -I$STREAMIT_HOME/library/cluster -c -o combined_threads.o combined_threads.cpp");
-system("g++ -O3 -o $output combined_threads.o -L$STREAMIT_HOME/library/cluster -lpthread -lcluster -lstdc++");
+system("g++ -O3 -I\$STREAMIT_HOME/library/cluster -c -o combined_threads.o combined_threads.cpp");
+system("g++ -O3 -o $output combined_threads.o -L\$STREAMIT_HOME/library/cluster -lpthread -lcluster -lstdc++");
