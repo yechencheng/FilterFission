@@ -189,11 +189,28 @@ float->float filter Multiply_by_float(int B, float m) {
 // other phases of the GMTI program with this data and can masage their
 // data requirements appropriately.
 float->float filter Transpose(int M, int N) {
+    work push M*N*2 peek M*N*2 pop M*N*2 {
+        for(int i=0; i<M; i++) {
+            for(int j=0; j<N; j++) {
+                push(peek(i*N*2+j*2));
+                push(peek(i*N*2+j*2+1));
+            }
+        }
+        for(int i=0; i<M; i++) {
+            for(int j=0; j<N; j++) {
+                pop();
+                pop();
+            }
+        }
+    }
+}
+/*
+float->float filter Transpose(int M, int N) {
 	work pop 8 push 8{
 		for(int i = 0; i < 8; i++)
 			push(pop());
 	}
-}
+}*/
 
 /*
 float->float filter Transpose(int M, int N) {
