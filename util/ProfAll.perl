@@ -17,17 +17,15 @@ elsif(@single){
 	ProfSingle(@_);
 }
 elsif($help){
-	print("ProfAll [--batch | --single sourceFloder] [--perf] [--massif] [--nocompile]\n
+	print("ProfAll [--batch | --single source thread itr ] [--perf] [--massif] [--nocompile]\n
 			--batch : profile all apps\n
 			--single : profile single apps\n
 			--perf : profile cache miss\n
 			--massif : profile memory\n
-			--nocompile : do not carry compiling phase\n
-			");
+			--nocompile : do not carry compiling phase\n");
 }
 
 sub ProfSingle{
-	
 	RunTestWithThread("$single[0]", "$single[1]", "-u 1", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
 }
 
