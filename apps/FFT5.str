@@ -8,8 +8,8 @@ void->void pipeline FFT5() {
     add FFTReorder(N);
     for(int j=2; j<=N; j*=2)
 	add CombineDFT(j);
-    //add FileWriter<float>("FFT5.out");
-    add FloatPrinter();
+    add FileWriter<float>("FFT5.out");
+    //add FloatPrinter();
 }
 
 float->float filter PassF(){

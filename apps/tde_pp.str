@@ -73,8 +73,8 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
 	}
     }
     add Transpose(M, N);
-    //add FileWriter<float>("tde_pp.out");
-    add sink(CH * M);
+    add FileWriter<float>("tde_pp.out");
+    //add sink(CH * M);
     
 }
 
@@ -3786,6 +3786,9 @@ float->float pipeline CombineDFT(int n){
 	int m = n / 8;
 	if(m < 2)
 		m = n;
+	if(m > 8)
+		m = 8;
+
 	add splitjoin{
 		split roundrobin(0, n, n);
 		add PassID(n, m);
