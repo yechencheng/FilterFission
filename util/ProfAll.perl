@@ -7,7 +7,8 @@ GetOptions ("single=s{3}" => \@single, #src,thread,itr
 			"help" => \$help,
 			"perf" => \$perf,
 			"massif" => \$massif,
-			"nocompile" => \$nocompile
+			"nocompile" => \$nocompile,
+			"time" => \$time
 			);
 
 if($batch){
@@ -141,7 +142,9 @@ sub RunTestWithThread{
 		print "Massif detected\n";
 		MassifData($MassifFlag, $output, "-i $itr $Rflag");
 	}
-
+	if($time){
+		system("./$output -i $itr -t");
+	}
 	LogInfo("`date`\t $src : END");
 }
 
