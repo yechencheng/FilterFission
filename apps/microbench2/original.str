@@ -1,31 +1,31 @@
 void->void pipeline original{
-	int DEPTH=8;
-	int INPUT=1<<24;
+	int DEPTH=21;
+	int INPUT=1<<22;
 	int G=INPUT;
 
 	add source(INPUT);
-	
+
 	for(int data = INPUT >> DEPTH; data < INPUT; data *= 2){
-		add process1(data);
+		add process2(data);
 	}
 
 	add print();
 }
 
-void->int filter source(int n){
+void->float filter source(int n){
 	work push 2*n{
 		for(int i = 0; i < 2*n; i++)
 			push(i);
 	}
 }
 
-int->int filter PassF{
+float->float filter PassF{
 	work pop 1 push 1{
 		push(pop());
 	}
 }
 
-int->int pipeline process(int n, int m){
+float->float pipeline process(int n, int m){
 	add splitjoin{
 		split roundrobin(n, n);
 		add PassF();
@@ -41,9 +41,9 @@ int->int pipeline process(int n, int m){
 	}
 }
 
-int->int filter process1(int n){
+float->float filter process1(int n){
 	work pop 2*n push 2*n{
-		int[2*n] tmp1;
+		float[2*n] tmp1;
 		for(int i = 0; i < n; i++)
 		{
 			tmp1[i] = peek(i);
@@ -53,31 +53,58 @@ int->int filter process1(int n){
 			pop();
 			push(tmp1[i]);
 		}
-		/*
-		int[2*n] tmp2;
-		int[2*n] tmp3;
-		for(int i = 0; i < 2*n; i++)
-			tmp1[i] = pop();
-		for(int i = 0; i < n; i++){
-			tmp2[i] = tmp1[i];
-			tmp2[i+n] = tmp1[i+n];
-			//tmp2[i] = tmp1[i] + tmp1[i+n];
-			//tmp2[i+n] = tmp1[i] - tmp1[i+n];
-		}
-		for(int i = 0; i < 2*n; i++)
-			tmp3[i] = tmp2[i];
-		for(int i = 0; i < 2*n; i++){
-			push(tmp3[i]);
-		}
-		for(int i = 0; i < 2*n; i++){
-			pop();
-		}
-		*/
 	}
 }
 
+float->float filter process2(int n) {
 
-int->void filter print{
+	float wn_r, wn_i;
+
+	init {
+		wn_r = (float)cos(2 * 3.141592654 / n);
+		wn_i = (float)sin(2 * 3.141592654 / n);
+	}
+
+	work push 2*n pop 2*n {
+		int i;
+		float w_r = 1;
+		float w_i = 0;
+		float[2*n] results;
+		float[2*n] data;
+		for(i = 0; i < 2*n; i++)
+			data[i] = pop();
+
+		for (i = 0; i < n; i += 2)
+		{
+			float y0_r = data[i];
+			float y0_i = data[i+1];
+
+			float y1_r = data[n + i];
+			float y1_i = data[n + i + 1];
+
+			float y1w_r = y1_r * w_r - y1_i * w_i;
+			float y1w_i = y1_r * w_i + y1_i * w_r;
+
+			results[i] = y0_r + y1w_r;
+			results[i + 1] = y0_i + y1w_i;
+
+			results[n + i] = y0_r - y1w_r;
+			results[n + i + 1] = y0_i - y1w_i;
+
+			float w_r_next = w_r * wn_r - w_i * wn_i;
+			float w_i_next = w_r * wn_i + w_i * wn_r;
+			w_r = w_r_next;
+			w_i = w_i_next;
+		}
+
+		for (i = 0; i < 2 * n; i++){
+			push(results[i]);
+		}
+	}
+
+}
+
+float->void filter print{
 	work pop 1{
 		//print(peek(0));
 		pop();
