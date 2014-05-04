@@ -1,5 +1,0 @@
-Filter                   	Reps	Unit Work (Estimated)	Total Work (Estimated)
-Fused_MyJ_pro_MyJ_pro_MyJ	2	199288879	398577758
-Fused_pro_MyJ_pro_MyJ_pri	64	5670089	362885696
-Fused_pro_MyJ_pro_MyJ    	16	20715027	331440432
-Fused_sou_MyS_pro_MyJ_pro	1	325136389	325136389

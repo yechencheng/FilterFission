@@ -1,7 +1,0 @@
-Filter     	Reps	Unit Work (Estimated)	Total Work (Estimated)
-process__39	1	16777216	16777216
-process__30	1	16777216	16777216
-process__21	1	16777216	16777216
-process__12	1	16777216	16777216
-source__3  	1	5242880	5242880
-print__42  	1048576	3	3145728
