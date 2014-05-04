@@ -1,0 +1,5 @@
+Filter       	Reps	Unit Work (Estimated)	Total Work (Estimated)
+Fused_pro_pri	1	17825792	17825792
+Fused_sou_pro	1	17825792	17825792
+process__30  	1	16777216	16777216
+process__21  	1	16777216	16777216

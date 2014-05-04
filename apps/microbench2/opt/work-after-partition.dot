@@ -1,0 +1,15 @@
+digraph streamit {
+size="6.5,9"
+subgraph cluster_node1 {
+ color = black
+
+ label="TopLevel1_source__3_16_Hier";
+node2 [ label="Fused_sou_MyS_pro_MyJ_pro\nwork=325136389\nI/O: 0->8388608" color="0.03888,0.72,0.95" style="filled" ]
+node3 [ label="Fused_MyJ_pro_MyJ_pro_MyJ\nwork=398577758\nI/O: 4194304->4194304" color="0.00555,0.81,0.84" style="filled" ]
+node2 -> node3
+node4 [ label="Fused_pro_MyJ_pro_MyJ\nwork=331440432\nI/O: 524288->524288" color="0.03888,0.72,0.95" style="filled" ]
+node3 -> node4
+node5 [ label="Fused_pro_MyJ_pro_MyJ_pri\nwork=362885696\nI/O: 131072->0" color="0.00555,0.81,0.84" style="filled" ]
+node4 -> node5
+}
+}

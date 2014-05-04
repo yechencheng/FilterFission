@@ -1,0 +1,15 @@
+digraph streamit {
+size="6.5,9"
+subgraph cluster_node1 {
+ color = black
+
+ label="TopLevel1_source__3_5_Hier_Hier";
+node2 [ label="Fused_sou_pro_pro_16\npartition=0" color="0.59166,0.61,0.7" style="filled" ]
+node3 [ label="Fused_pro_pro_17\npartition=1" color="0.53888,0.26,0.91" style="filled" ]
+node2 -> node3
+node4 [ label="Fused_pro_pro_18\npartition=2" color="0.51694,0.24,1" style="filled" ]
+node3 -> node4
+node5 [ label="Fused_pro_pro_pri_19\npartition=3" color="0.07777,0.61,0.99" style="filled" ]
+node4 -> node5
+}
+}

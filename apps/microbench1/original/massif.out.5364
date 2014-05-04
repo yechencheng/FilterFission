@@ -1,0 +1,1039 @@
+desc: --stacks=yes
+cmd: ./C4.out -i 10
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=51958
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1048
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=114262
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1568
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=142438
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=186871
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1032
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=226197
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=282199
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=325335
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=360012
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=404645
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=467609
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1568
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=510632
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=542469
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=581983
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1368
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=615378
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=detailed
+n0: 0 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+#-----------
+snapshot=15
+#-----------
+time=650210
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=691856
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1576
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=733632
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=761425
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=809838
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=837781
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=886372
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=914275
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=975726
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=detailed
+n0: 0 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+#-----------
+snapshot=24
+#-----------
+time=1026081
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=992
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=1064451
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=1102432
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=detailed
+n0: 0 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+#-----------
+snapshot=27
+#-----------
+time=1165347
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=1190637
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=1241475
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1576
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=1279064
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1528
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=1329346
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=1379591
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1320
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=1412175
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=984
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=1462436
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=376
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=1524944
+mem_heap_B=5157
+mem_heap_extra_B=683
+mem_stacks_B=4912
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=1592279
+mem_heap_B=6125
+mem_heap_extra_B=747
+mem_stacks_B=4016
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=1659938
+mem_heap_B=6988
+mem_heap_extra_B=860
+mem_stacks_B=4560
+heap_tree=detailed
+n10: 6988 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1178 0x400B57C: _dl_new_object (dl-object.c:77)
+  n1: 1178 0x4006804: _dl_map_object_from_fd (dl-load.c:1051)
+   n1: 1178 0x4008698: _dl_map_object (dl-load.c:2568)
+    n1: 1178 0x4013849: dl_open_worker (dl-open.c:225)
+     n1: 1178 0x400F174: _dl_catch_error (dl-error.c:178)
+      n1: 1178 0x4013318: _dl_open (dl-open.c:639)
+       n1: 1178 0x5694D40: do_dlopen (dl-libc.c:89)
+        n1: 1178 0x400F174: _dl_catch_error (dl-error.c:178)
+         n1: 1178 0x5694E02: __libc_dlopen_mode (dl-libc.c:48)
+          n1: 1178 0x566A15C: nss_load_library.isra.1 (nsswitch.c:372)
+           n1: 1178 0x566ABBB: __nss_lookup_function (nsswitch.c:474)
+            n1: 1178 0x566ADCA: __nss_lookup (nsswitch.c:202)
+             n1: 1178 0x5671C46: gethostbyname_r@@GLIBC_2.2.5 (getXXbyYY_r.c:203)
+              n1: 1178 0x56712FB: gethostbyname (getXXbyYY.c:117)
+               n1: 1178 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+                n1: 1178 0x41520D: get_myip() (in /home/ycc/project/temp/streamit/original/C4.out)
+                 n0: 1178 0x4022C9: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n0: 1175 in 28 places, all below massif's threshold (01.00%)
+ n3: 1136 0x55D3209: __fopen_internal (iofopen.c:76)
+  n1: 568 0x60257A1: ???
+   n1: 568 0x5671AC3: gethostbyname_r@@GLIBC_2.2.5 (getXXbyYY_r.c:256)
+    n1: 568 0x56712FB: gethostbyname (getXXbyYY.c:117)
+     n2: 568 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+      n1: 568 0x4096B6: init_instance::read_config_file() (in /home/ycc/project/temp/streamit/original/C4.out)
+       n1: 568 0x40D552: node_server::run(unsigned int) (in /home/ycc/project/temp/streamit/original/C4.out)
+        n0: 568 0x4027DA: main (in /home/ycc/project/temp/streamit/original/C4.out)
+      n0: 0 in 2 places, all below massif's threshold (01.00%)
+  n1: 568 0x409589: init_instance::read_config_file() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 568 0x40D552: node_server::run(unsigned int) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n0: 568 0x4027DA: main (in /home/ycc/project/temp/streamit/original/C4.out)
+  n0: 0 in 4 places, all below massif's threshold (01.00%)
+ n1: 1049 0x5669CD3: nss_parse_service_list (nsswitch.c:678)
+  n1: 1049 0x566A449: nss_parse_file.constprop.2 (nsswitch.c:831)
+   n1: 1049 0x566A79F: __nss_database_lookup (nsswitch.c:145)
+    n1: 1049 0x566BDBA: __nss_hosts_lookup2 (XXX-lookup.c:70)
+     n1: 1049 0x5671C46: gethostbyname_r@@GLIBC_2.2.5 (getXXbyYY_r.c:203)
+      n1: 1049 0x56712FB: gethostbyname (getXXbyYY.c:117)
+       n1: 1049 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+        n1: 1049 0x41520D: get_myip() (in /home/ycc/project/temp/streamit/original/C4.out)
+         n0: 1049 0x4022C9: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n1: 1024 0x56713D3: gethostbyname (getXXbyYY.c:103)
+  n1: 1024 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 1024 0x41520D: get_myip() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n0: 1024 0x4022C9: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n2: 512 0x414918: std::_Deque_base<checkpoint_info*, std::allocator<checkpoint_info*> >::_M_initialize_map(unsigned long) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 512 0x402FF9: _GLOBAL__sub_I__ZN12save_manager10queue_lockE (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 512 0x41584B: __libc_csu_init (in /home/ycc/project/temp/streamit/original/C4.out)
+    n0: 512 0x55856FE: (below main) (libc-start.c:185)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n1: 314 0x566A41B: nss_parse_file.constprop.2 (nsswitch.c:822)
+  n1: 314 0x566A79F: __nss_database_lookup (nsswitch.c:145)
+   n1: 314 0x566BDBA: __nss_hosts_lookup2 (XXX-lookup.c:70)
+    n1: 314 0x5671C46: gethostbyname_r@@GLIBC_2.2.5 (getXXbyYY_r.c:203)
+     n1: 314 0x56712FB: gethostbyname (getXXbyYY.c:117)
+      n1: 314 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+       n1: 314 0x41520D: get_myip() (in /home/ycc/project/temp/streamit/original/C4.out)
+        n0: 314 0x4022C9: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n1: 288 0x4012073: _dl_allocate_tls (dl-tls.c:297)
+  n1: 288 0x4E35ABB: pthread_create@@GLIBC_2.2.5 (allocatestack.c:571)
+   n1: 288 0x414C2A: service::start() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n0: 288 0x4026F1: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n1: 168 0x4010B58: _dl_check_map_versions (dl-version.c:300)
+  n1: 168 0x4013E1E: dl_open_worker (dl-open.c:268)
+   n1: 168 0x400F174: _dl_catch_error (dl-error.c:178)
+    n1: 168 0x4013318: _dl_open (dl-open.c:639)
+     n1: 168 0x5694D40: do_dlopen (dl-libc.c:89)
+      n1: 168 0x400F174: _dl_catch_error (dl-error.c:178)
+       n1: 168 0x5694E02: __libc_dlopen_mode (dl-libc.c:48)
+        n1: 168 0x566A15C: nss_load_library.isra.1 (nsswitch.c:372)
+         n1: 168 0x566ABBB: __nss_lookup_function (nsswitch.c:474)
+          n1: 168 0x566ADCA: __nss_lookup (nsswitch.c:202)
+           n1: 168 0x5671C46: gethostbyname_r@@GLIBC_2.2.5 (getXXbyYY_r.c:203)
+            n1: 168 0x56712FB: gethostbyname (getXXbyYY.c:117)
+             n1: 168 0x415174: lookup_ip(char const*) (in /home/ycc/project/temp/streamit/original/C4.out)
+              n1: 168 0x41520D: get_myip() (in /home/ycc/project/temp/streamit/original/C4.out)
+               n0: 168 0x4022C9: main (in /home/ycc/project/temp/streamit/original/C4.out)
+ n1: 144 0x40B721: std::_Rb_tree<int, std::pair<int const, init_instance::Thread_Info>, std::_Select1st<std::pair<int const, init_instance::Thread_Info> >, std::less<int>, std::allocator<std::pair<int const, init_instance::Thread_Info> > >::_M_insert_(std::_Rb_tree_node_base const*, std::_Rb_tree_node_base const*, std::pair<int const, init_instance::Thread_Info> const&) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n0: 144 in 2 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=38
+#-----------
+time=1702357
+mem_heap_B=491741
+mem_heap_extra_B=1259
+mem_stacks_B=3288
+heap_tree=detailed
+n2: 491741 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 480000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 11741 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=39
+#-----------
+time=1757206
+mem_heap_B=491741
+mem_heap_extra_B=1259
+mem_stacks_B=3136
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=1793654
+mem_heap_B=491741
+mem_heap_extra_B=1259
+mem_stacks_B=3136
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=1830102
+mem_heap_B=491741
+mem_heap_extra_B=1259
+mem_stacks_B=3136
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=1866550
+mem_heap_B=491741
+mem_heap_extra_B=1259
+mem_stacks_B=3136
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=1918672
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=3616
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=1949206
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=2816
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=2005120
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=2816
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=2061034
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=2816
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=2116948
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=2816
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=2172862
+mem_heap_B=491797
+mem_heap_extra_B=1275
+mem_stacks_B=2816
+heap_tree=detailed
+n2: 491797 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 480000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 11797 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=49
+#-----------
+time=2214654
+mem_heap_B=572373
+mem_heap_extra_B=1307
+mem_stacks_B=3016
+heap_tree=detailed
+n2: 572373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n4: 560000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 80000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 80000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 80000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 80000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=50
+#-----------
+time=2214703
+mem_heap_B=612373
+mem_heap_extra_B=1315
+mem_stacks_B=3016
+heap_tree=detailed
+n2: 612373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n4: 600000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 120000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 120000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 120000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 120000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=51
+#-----------
+time=2214752
+mem_heap_B=652373
+mem_heap_extra_B=1323
+mem_stacks_B=3016
+heap_tree=detailed
+n2: 652373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n4: 640000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=52
+#-----------
+time=2215295
+mem_heap_B=692373
+mem_heap_extra_B=1331
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 692373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n5: 680000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 40000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 40000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 40000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 40000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 40000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=53
+#-----------
+time=2215344
+mem_heap_B=732373
+mem_heap_extra_B=1339
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 732373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n5: 720000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 80000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 80000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 80000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 80000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 80000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=54
+#-----------
+time=2215393
+mem_heap_B=772373
+mem_heap_extra_B=1347
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 772373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n5: 760000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 120000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 120000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 120000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 120000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 120000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=55
+#-----------
+time=2215442
+mem_heap_B=812373
+mem_heap_extra_B=1355
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 812373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n5: 800000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=56
+#-----------
+time=2215692
+mem_heap_B=852373
+mem_heap_extra_B=1363
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 852373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 840000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 40000 0x406CC3: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 40000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 40000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 40000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 40000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=57
+#-----------
+time=2215741
+mem_heap_B=892373
+mem_heap_extra_B=1371
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 892373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 880000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 80000 0x406CC3: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 80000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 80000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 80000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 80000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=58
+#-----------
+time=2215790
+mem_heap_B=932373
+mem_heap_extra_B=1379
+mem_stacks_B=3624
+heap_tree=detailed
+n2: 932373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 920000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 120000 0x406CC3: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 120000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 120000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 120000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 120000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=59
+#-----------
+time=2215839
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3624
+heap_tree=peak
+n2: 972373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 960000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CC3: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=60
+#-----------
+time=2244070
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=2272027
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=2299984
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=2327941
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=2355898
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=2383855
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=2411812
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=2439769
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=2467726
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=3472
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=2493191
+mem_heap_B=972373
+mem_heap_extra_B=1387
+mem_stacks_B=11680
+heap_tree=detailed
+n2: 972373 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 960000 0x40C266: memsocket::set_buffer_size(int) (in /home/ycc/project/temp/streamit/original/C4.out)
+  n1: 160000 0x405A7B: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x405A93: __init_sockets_1(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4065FC: run_1() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x406967: run_thread_1(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x404E73: __init_sockets_0(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x4056C4: run_0() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x405757: run_thread_0(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x408316: run_3() (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x408647: run_thread_3(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+     n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CAB: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+  n1: 160000 0x406CC3: __init_sockets_2(void (*)()) (in /home/ycc/project/temp/streamit/original/C4.out)
+   n1: 160000 0x40782C: run_2() (in /home/ycc/project/temp/streamit/original/C4.out)
+    n1: 160000 0x407B97: run_thread_2(void*) (in /home/ycc/project/temp/streamit/original/C4.out)
+     n1: 160000 0x4E34E98: start_thread (pthread_create.c:308)
+      n0: 160000 0x56583FB: clone (clone.S:112)
+ n0: 12373 in 43 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=70
+#-----------
+time=2620081
+mem_heap_B=972661
+mem_heap_extra_B=1395
+mem_stacks_B=3336
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=2645374
+mem_heap_B=972661
+mem_heap_extra_B=1395
+mem_stacks_B=3968
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=2670665
+mem_heap_B=970693
+mem_heap_extra_B=1091
+mem_stacks_B=3800
+heap_tree=empty

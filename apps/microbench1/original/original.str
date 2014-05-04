@@ -1,0 +1,38 @@
+void->void pipeline original{
+	int DEPTH=4;
+	int INPUT=1<<20;
+	int G=INPUT;
+
+	add source(INPUT);
+	for(int i = 0; i < DEPTH; i++)
+		add process(G);
+	add print();
+}
+
+void->int filter source(int n){
+	work push n{
+		for(int i = 0; i < n; i++)
+			push(n);
+	}
+}
+
+int->int filter process(int n){
+	work pop n push n{
+		int[n] tmp1;
+		int[n] tmp2;
+		for(int i = 0; i < n; i++)
+			tmp1[i] = pop();
+		for(int i = 0; i < n; i++)
+			tmp1[i]++;
+		for(int i = 0; i < n; i++)
+			tmp2[i] = tmp1[i] + 1;
+		for(int i = 0; i < n; i++)
+			push(tmp2[i]);
+	}
+}
+
+int->void filter print{
+	work pop 1{
+		pop();
+	}
+}

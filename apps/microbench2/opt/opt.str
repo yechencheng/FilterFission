@@ -1,0 +1,181 @@
+void->void pipeline opt{
+	int DEPTH=8;
+	int INPUT=1<<22;
+	int G=512;
+
+	add source(INPUT);
+	add Fused_process(DEPTH, INPUT, G);
+	add print();
+}
+
+void->int filter source(int n){
+	work push 2*n{
+		for(int i = 0; i < 2*n; i++)
+			push(i);
+	}
+}
+
+int->int filter PassF{
+	work pop 1 push 1{
+		push(pop());
+	}
+}
+
+int->int filter MySplit(int n, int m){
+	work pop 2 * n push 2 * n{
+		int[m] tmp;
+		for(int i = 0; i < n/m; i++){
+			for(int j = 0; j < m; j++){
+				tmp[j] = peek(n);
+				push(pop());
+			}
+			for(int j = 0; j < m; j++){
+				push(tmp[j]);
+			}
+		}
+		for(int i = 0; i < n; i++)
+			pop();
+	}
+}
+
+int->int filter MyJoin(int n, int m){
+	work pop 2 * n push 2 * n{
+		int[n] tmp;
+		int id = 0;
+		for(int i = 0; i < n/m; i++){
+			for(int j = 0; j < m; j++)
+				push(pop());
+			for(int j = 0; j < m; j++)
+				tmp[id++] = pop();
+		}
+
+		for(int i = 0; i < n; i++)
+			push(tmp[i]);
+	}
+}
+
+//n2 = 2*x*n1
+int->int filter Fused_MyJoin_MySplit(int n1, int n2, int m){
+	work pop 2 * n2 push 2 * n2{
+		/*
+		int[2*n2] tmp;
+		int id = 0;
+		for(int i = 0; i < n2/m; i++){
+			for(int j = 0; j < m; j++)
+				tmp[id++] = pop();
+			id -= m;
+			for(int j = 0; j < m; j++)
+				tmp[id++ + n2] = pop();
+		}
+		
+		id = 0;
+		for(int k = 0; k < n2 / n1; k++){
+			for(int i = 0; i < n1/m; i++){
+				for(int j = 0; j < m; j++){
+					push(tmp[id++]);
+				}
+				id -= m;
+				for(int j = 0; j < m; j++){
+					push(tmp[id++ + n1]);
+				}
+			}
+			id += n1;
+		}
+		*/
+		
+		int id = 0;
+		int[n2] tmp;
+		for(int i = 0; i < n2 / (2*n1); i++){
+			for(int j = 0; j < n1 / m; j++){
+				for(int k = 0; k < m; k++)
+					push(pop());
+				for(int k = 0; k < m; k++)
+					push(peek(k + 2 * n1 - m));
+				for(int k = 0; k < m; k++)
+					tmp[id++] = pop();
+			}
+			for(int j = 0; j < n1 / m; j++){
+				for(int k = 0; k < m; k++)
+					pop();
+				for(int k = 0; k < m; k++)
+					tmp[id++] = pop();
+			}
+		}
+
+		id = 0;
+		for(int k = 0; k < n2 / (2*n1); k++){
+			for(int i = 0; i < n1/m; i++){
+				for(int j = 0; j < m; j++){
+					push(tmp[id++]);
+				}
+				id -= m;
+				for(int j = 0; j < m; j++){
+					push(tmp[id++ + n1]);
+				}
+			}
+			id += n1;
+		}
+		
+	}
+}
+
+int->int pipeline Fused_process(int DEPTH, int n, int m){
+	int nn = n;
+	add MySplit(n, m);
+	add process1(m);
+	for(int i = 0; i < DEPTH - 1; i++){
+		nn/=2;
+		add Fused_MyJoin_MySplit(nn, nn*2, m);
+		add process1(m);
+	}
+	add MyJoin(nn, m);
+}
+
+
+int->int pipeline process(int n, int m){
+	/*
+	add splitjoin{
+		split roundrobin(n, n);
+		add PassF();
+		add PassF();
+		join roundrobin(m, m);
+	}
+	*/
+	add MySplit(n, m);
+	add process1(m);
+	add MyJoin(n, m);
+	/*
+	add splitjoin{
+		split roundrobin(m, m);
+		add PassF();
+		add PassF();
+		join roundrobin(n, n);
+	}
+	*/
+}
+
+int->int filter process1(int n){
+	work pop 2*n push 2*n{
+		int[2*n] tmp1;
+		int[2*n] tmp2;
+		int[2*n] tmp3;
+		for(int i = 0; i < 2*n; i++)
+			tmp1[i] = pop();
+		for(int i = 0; i < n; i++){
+			tmp2[i] = tmp1[i];
+			tmp2[i+n] = tmp1[i+n];
+		}
+		for(int i = 0; i < 2*n; i++)
+			tmp3[i] = tmp2[i];
+		for(int i = 0; i < 2*n; i++){
+			push(tmp3[i]);
+		}
+	}
+}
+
+int->void filter print{
+	work pop 1{
+		//print(peek(0));
+		pop();
+	}
+}

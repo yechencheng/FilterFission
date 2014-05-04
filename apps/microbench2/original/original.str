@@ -1,0 +1,73 @@
+void->void pipeline original{
+	int DEPTH=8;
+	int INPUT=1<<22;
+	int G=INPUT;
+
+	add source(INPUT);
+	
+	int data = INPUT;
+	for(int i = 0; i < DEPTH; i++){
+		add process1(data);
+		data /= 2;
+	}
+
+	add print();
+}
+
+void->int filter source(int n){
+	work push 2*n{
+		for(int i = 0; i < 2*n; i++)
+			push(i);
+	}
+}
+
+int->int filter PassF{
+	work pop 1 push 1{
+		push(pop());
+	}
+}
+
+int->int pipeline process(int n, int m){
+	add splitjoin{
+		split roundrobin(n, n);
+		add PassF();
+		add PassF();
+		join roundrobin(m, m);
+	}
+	add process1(m);
+	add splitjoin{
+		split roundrobin(m, m);
+		add PassF();
+		add PassF();
+		join roundrobin(n, n);
+	}
+}
+
+int->int filter process1(int n){
+	work pop 2*n push 2*n{
+		int[2*n] tmp1;
+		int[2*n] tmp2;
+		int[2*n] tmp3;
+		for(int i = 0; i < 2*n; i++)
+			tmp1[i] = pop();
+		for(int i = 0; i < n; i++){
+			tmp2[i] = tmp1[i];
+			tmp2[i+n] = tmp1[i+n];
+			//tmp2[i] = tmp1[i] + tmp1[i+n];
+			//tmp2[i+n] = tmp1[i] - tmp1[i+n];
+		}
+		for(int i = 0; i < 2*n; i++)
+			tmp3[i] = tmp2[i];
+		for(int i = 0; i < 2*n; i++){
+			push(tmp3[i]);
+		}
+	}
+}
+
+
+int->void filter print{
+	work pop 1{
+		//print(peek(0));
+		pop();
+	}
+}

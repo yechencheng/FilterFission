@@ -1,0 +1,13 @@
+
+ Performance counter stats for '././C4.out -i 100':
+
+       358,699,693 cache-references                                            
+       114,894,751 cache-misses              #   32.031 % of all cache refs    
+    20,372,895,561 cycles                    #    0.000 GHz                    
+    25,883,749,899 instructions              #    1.27  insns per cycle        
+     4,348,053,370 branches                                                    
+            46,227 faults                                                      
+                18 migrations                                                  
+
+       6.134386724 seconds time elapsed
+
