@@ -23,7 +23,7 @@ float->float pipeline Fused_CombineDFT(int N){
     add CombineDFT(j);
   add MySplit(j, 8);
   add CombineDFT1(8);
-  for(j <= N; j*=2){
+  for(; j <= N; j*=2){
     add Fused_MyJoin_MySplit(j, j * 2, m);
     add CombineDFT1(m);
   }
