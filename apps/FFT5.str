@@ -23,7 +23,7 @@ float->float pipeline Fused_CombineDFT(int N){
     add CombineDFT1(j);
   add MySplit(j, 8);
   add CombineDFT1(8);
-  for(; j <= N; j*=2){
+  for(; j < N; j*=2){
     add Fused_MyJoin_MySplit(j, j * 2, m);
     add CombineDFT1(m);
   }
@@ -174,7 +174,7 @@ float->float filter CombineDFT1(int n) {
 }
 
 
-
+/*
 float->float splitjoin FFTReorderSimple(int n){
   split roundrobin(2, 2);
   add PassF();
@@ -182,8 +182,9 @@ float->float splitjoin FFTReorderSimple(int n){
   join roundrobin(n, n);
 
 }
+*/
 
-/*
+
 float->float filter FFTReorderSimple(int n) {
 
   int totalData;
@@ -214,7 +215,7 @@ float->float filter FFTReorderSimple(int n) {
         }
     }
 }
-*/
+
 
 float->float pipeline FFTReorder(int n) {
 
