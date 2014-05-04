@@ -6,10 +6,28 @@ void->void pipeline FFT5() {
     //add FFTTestSource(N);
   add FileReader<float>("../input/FFT5.in");
   add FFTReorder(N);
+  
+  Fused_CombineDFT(N);
+  /*
   for(int j=2; j<=N; j*=2)
     add CombineDFT(j);
+    */
   add FileWriter<float>("FFT5.out");
     //add FloatPrinter();
+}
+
+float->float pipeline Fused_CombineDFT(int N){
+  int j = 2;
+  int m = 8;
+  for(; j < 128; j*=2)
+    add CombineDFT(j);
+  add MySplit(j, 8);
+  add CombineDFT1(8);
+  for(j <= N; j*=2){
+    add Fused_MyJoin_MySplit(j, j * 2, m);
+    add CombineDFT1(m);
+  }
+  add MyJoin(j/2, m);
 }
 
 float->float filter PassF(){
@@ -17,6 +35,65 @@ float->float filter PassF(){
 		push(pop());
 	}
 }
+
+//n1 = 2*n2
+float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
+  work pop 2 * n1 push 2 * n1 {
+    int[n2] tmp;
+    int id = 0;
+    for(int i = 0; i < n / m; i++){
+      for(int j = 0; j < m; j++)
+        push(pop());
+      for(int j = n1 - m; j < n1; j++)
+        push(peek(j));
+      for(int j = 0; j < m; j++)
+        tmp[id++] = pop();
+    }
+    id = 0;
+    for(int i = 0; i < n / m; i++){
+      for(int j = 0; j < m; j++)
+        pop();
+      for(int j = 0; j < m; j++)
+        push(tmp[id++]);
+      for(int j = 0; j < m; j++)
+        push(pop());
+    }
+  }
+}
+
+
+int->int filter MyJoin(int n, int m){
+  work pop 2 * n push 2 * n{
+    int[n] tmp;
+    int id = 0;
+    for(int i = 0; i < n/m; i++){
+      for(int j = 0; j < m; j++)
+        push(pop());
+      for(int j = 0; j < m; j++)
+        tmp[id++] = pop();
+    }
+
+    for(int i = 0; i < n; i++)
+      push(tmp[i]);
+  }
+}
+
+int->int filter MySplit(int n, int m){
+  work pop 2 * n push 2 * n{
+    for(int i = 0; i < n/m; i++){
+      for(int j = 0; j < m; j++){
+        push(pop());
+      }
+      for(int j = n - m; j < n; j++){
+        push(peek(j));
+      }
+    }
+    for(int i = 0; i < n; i++)
+      pop();
+  }
+}
+
+
 
 float->float pipeline CombineDFT(int n){
   int m = n / 8;
@@ -143,8 +220,8 @@ float->float pipeline FFTReorder(int n) {
 
   for(int i=1; i<(n/2); i*= 2)
     add FFTReorderSimple(n/i);
-
 }
+
 
 
 
