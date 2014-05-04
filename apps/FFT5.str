@@ -41,7 +41,7 @@ float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
   work pop 2 * n1 push 2 * n1 {
     float[n2] tmp;
     int id = 0;
-    for(int i = 0; i < n1 / m; i++){
+    for(int i = 0; i < n2 / m; i++){
       for(int j = 0; j < m; j++)
         push(pop());
       for(int j = n1 - m; j < n1; j++)
@@ -50,7 +50,7 @@ float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
         tmp[id++] = pop();
     }
     id = 0;
-    for(int i = 0; i < n1 / m; i++){
+    for(int i = 0; i < n2 / m; i++){
       for(int j = 0; j < m; j++)
         pop();
       for(int j = 0; j < m; j++)
