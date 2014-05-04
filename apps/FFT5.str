@@ -7,7 +7,7 @@ void->void pipeline FFT5() {
   add FileReader<float>("../input/FFT5.in");
   add FFTReorder(N);
   
-  Fused_CombineDFT(N);
+  add Fused_CombineDFT(N);
   /*
   for(int j=2; j<=N; j*=2)
     add CombineDFT(j);
@@ -39,7 +39,7 @@ float->float filter PassF(){
 //n1 = 2*n2
 float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
   work pop 2 * n1 push 2 * n1 {
-    int[n2] tmp;
+    float[n2] tmp;
     int id = 0;
     for(int i = 0; i < n1 / m; i++){
       for(int j = 0; j < m; j++)
@@ -62,9 +62,9 @@ float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
 }
 
 
-int->int filter MyJoin(int n, int m){
+float->float filter MyJoin(int n, int m){
   work pop 2 * n push 2 * n{
-    int[n] tmp;
+    float[n] tmp;
     int id = 0;
     for(int i = 0; i < n/m; i++){
       for(int j = 0; j < m; j++)
@@ -78,7 +78,7 @@ int->int filter MyJoin(int n, int m){
   }
 }
 
-int->int filter MySplit(int n, int m){
+float->float filter MySplit(int n, int m){
   work pop 2 * n push 2 * n{
     for(int i = 0; i < n/m; i++){
       for(int j = 0; j < m; j++){
