@@ -1,14 +1,12 @@
 void->void pipeline original{
 	int DEPTH=8;
-	int INPUT=1<<22;
+	int INPUT=1<<24;
 	int G=INPUT;
 
 	add source(INPUT);
 	
-	int data = INPUT;
-	for(int i = 0; i < DEPTH; i++){
+	for(int data = INPUT >> DEPTH; data < INPUT; data *= 2){
 		add process1(data);
-		data /= 2;
 	}
 
 	add print();
@@ -46,6 +44,16 @@ int->int pipeline process(int n, int m){
 int->int filter process1(int n){
 	work pop 2*n push 2*n{
 		int[2*n] tmp1;
+		for(int i = 0; i < n; i++)
+		{
+			tmp1[i] = peek(i);
+			tmp1[i+n] = peek(i+n);
+		}
+		for(int i = 0; i < 2 * n; i++){
+			pop();
+			push(tmp1[i]);
+		}
+		/*
 		int[2*n] tmp2;
 		int[2*n] tmp3;
 		for(int i = 0; i < 2*n; i++)
@@ -61,6 +69,10 @@ int->int filter process1(int n){
 		for(int i = 0; i < 2*n; i++){
 			push(tmp3[i]);
 		}
+		for(int i = 0; i < 2*n; i++){
+			pop();
+		}
+		*/
 	}
 }
 

@@ -1,12 +1,25 @@
 void->void pipeline opt{
 	int DEPTH=8;
-	int INPUT=1<<22;
-	int G=512;
+	int INPUT=1<<24;
+	int G=2;
 
 	add source(INPUT);
 	add Fused_process(DEPTH, INPUT, G);
 	add print();
 }
+
+int->int pipeline Fused_process(int DEPTH, int n, int m){
+	int nn = n >> DEPTH;
+	add MySplit(n, m);
+	add process1(m);
+	for(int i = 0; i < DEPTH - 1; i++){
+		nn*=2;
+		add Fused_MyJoin_MySplit3(nn, nn*2, m);
+		add process1(m);
+	}
+	add MyJoin(nn, m);
+}
+
 
 void->int filter source(int n){
 	work push 2*n{
@@ -53,7 +66,7 @@ int->int filter MyJoin(int n, int m){
 }
 
 //n2 = 2*x*n1
-int->int filter Fused_MyJoin_MySplit(int n1, int n2, int m){
+int->int filter Fused_MyJoin_MySplit1(int n2, int n1, int m){
 	work pop 2 * n2 push 2 * n2{
 		int id = 0;
 		int[n2] tmp;
@@ -91,18 +104,61 @@ int->int filter Fused_MyJoin_MySplit(int n1, int n2, int m){
 	}
 }
 
-int->int pipeline Fused_process(int DEPTH, int n, int m){
-	int nn = n;
-	add MySplit(n, m);
-	add process1(m);
-	for(int i = 0; i < DEPTH - 1; i++){
-		nn/=2;
-		add Fused_MyJoin_MySplit(nn, nn*2, m);
-		add process1(m);
+//n1 = 2*n2
+int->int filter Fused_MyJoin_MySplit2(int n2, int n1, int m){
+	int[n2] tmp;
+
+	work pop 2*n1 push 2*n1 {
+		int id = 0;
+		for(int i = 0; i < n2 / m; i++){
+			for(int j = 0; j < m; j++)
+				push(pop());
+			for(int j = n2 - m; j < n2; j++)
+				push(peek(j));
+			for(int j = 0; j < m; j++)
+				tmp[id++] = pop();
+		}
+		id = 0;
+		for(int i = 0; i < n2 / m; i++){
+			for(int j = 0; j < m; j++)
+				pop();
+			for(int j = 0; j < m; j++)
+				push(tmp[id++]);
+			for(int j = 0; j < m; j++)
+				push(pop());
+		}
 	}
-	add MyJoin(nn, m);
 }
 
+//n1 = 2*n2
+int->int filter Fused_MyJoin_MySplit3(int n2, int n1, int m){
+	work push 2*n1 pop 2*n1{
+		for(int i = 0; i < n2; i++)
+			push(pop());
+		for(int i = 0; i < n2; i++)
+			push(peek(i + n2));
+		for(int i = 0; i < n2; i++)
+			push(pop());
+		for(int i = 0; i < n2; i++)
+			pop();
+		for(int i = 0; i < n2; i++)
+			push(pop());
+	}
+}
+
+int->int filter Fused_MyJoin_MySplit4(int n2, int n1, int m){
+	int[n2] tmp;
+	init{
+		for(int i = 0; i < n2; i++)
+			tmp[i] = 0;
+	}
+	work push n2 pop n2{
+		for(int i = 0; i < n2; i++){
+			push(tmp[i]);
+			tmp[i] = pop();
+		}
+	}
+}
 
 int->int pipeline process(int n, int m){
 	/*
@@ -129,6 +185,16 @@ int->int pipeline process(int n, int m){
 int->int filter process1(int n){
 	work pop 2*n push 2*n{
 		int[2*n] tmp1;
+		for(int i = 0; i < n; i++)
+		{
+			tmp1[i] = peek(i);
+			tmp1[i+n] = peek(i+n);
+		}
+		for(int i = 0; i < 2 * n; i++){
+			pop();
+			push(tmp1[i]);
+		}
+		/*
 		int[2*n] tmp2;
 		int[2*n] tmp3;
 		for(int i = 0; i < 2*n; i++)
@@ -136,12 +202,18 @@ int->int filter process1(int n){
 		for(int i = 0; i < n; i++){
 			tmp2[i] = tmp1[i];
 			tmp2[i+n] = tmp1[i+n];
+			//tmp2[i] = tmp1[i] + tmp1[i+n];
+			//tmp2[i+n] = tmp1[i] - tmp1[i+n];
 		}
 		for(int i = 0; i < 2*n; i++)
 			tmp3[i] = tmp2[i];
 		for(int i = 0; i < 2*n; i++){
 			push(tmp3[i]);
 		}
+		for(int i = 0; i < 2*n; i++){
+			pop();
+		}
+		*/
 	}
 }
 

@@ -1,45 +1,46 @@
 
 void->void pipeline FFT5() {
-  int N = 8192;
+  int N = 1 << 20;
 
 
-    //add FFTTestSource(N);
-  add FileReader<float>("../input/FFT5.in");
-  add FFTReorder(N);
+  add FFTTestSource(N);
+  //add FileReader<float>("../input/FFT5.in");
+  //add FFTReorder(N);
   
   add Fused_CombineDFT(N);
   /*
   for(int j=2; j<=N; j*=2)
     add CombineDFT(j);
     */
-  add FileWriter<float>("FFT5.out");
+    add FileWriter<float>("FFT5.out");
     //add FloatPrinter();
 }
 
 float->float pipeline Fused_CombineDFT(int N){
-  int j = 2;
-  int m = 8;
-  for(; j < 128; j*=2)
-    add CombineDFT1(j);
-  add MySplit(j, 8);
-  add CombineDFT1(8);
-  for(; j < N; j*=2){
-    add Fused_MyJoin_MySplit(j, j * 2, m);
+    int m = 2;
+
+    add MySplit(2, m);
     add CombineDFT1(m);
-  }
-  add MyJoin(j/2, m);
+    
+    for(int j = 2; j < N; j *= 2){
+      int y = j * 2;
+      add Fused_MyJoin_MySplit(y, j, m);
+      add CombineDFT1(m);
+    }
+    add MyJoin(N, m);
 }
 
 float->float filter PassF(){
-	work pop 1 push 1{
-		push(pop());
-	}
+   work pop 1 push 1{
+    push(pop());
+  }
 }
 
 //n1 = 2*n2
 float->float filter Fused_MyJoin_MySplit(int n1, int n2, int m){
-  work pop 2 * n1 push 2 * n1 {
-    float[n2] tmp;
+  float[n2] tmp;
+
+  work pop 2*n1 push 2*n1 {
     int id = 0;
     for(int i = 0; i < n2 / m; i++){
       for(int j = 0; j < m; j++)
@@ -94,29 +95,6 @@ float->float filter MySplit(int n, int m){
 }
 
 
-
-float->float pipeline CombineDFT(int n){
-  int m = n / 8;
-  if(m < 2)
-    m = n;
-  if(m > 8)
-    m = 8;
-
-  add splitjoin{
-    split roundrobin(n, n);
-    add PassF();
-    add PassF();
-    join roundrobin(m, m);
-  }
-  add CombineDFT1(m);
-  add splitjoin{
-    split roundrobin(m, m);
-    add PassF();
-    add PassF();
-    join roundrobin(n, n);
-  }
-}
-
 float->float filter CombineDFT1(int n) {
 
   float wn_r, wn_i;
@@ -131,7 +109,6 @@ float->float filter CombineDFT1(int n) {
     float w_r = 1;
     float w_i = 0;
     float[2*n] results;
-
     for (i = 0; i < n; i += 2)
     {
 	    // this is a temporary work-around since there seems to be
@@ -164,15 +141,14 @@ float->float filter CombineDFT1(int n) {
      w_i = w_i_next;
    }
 
-   for (i = 0; i < 2 * n; i++)
-   {
-    pop();
+   for (i = 0; i < 2 * n; i++){
     push(results[i]);
   }
+  for(i = 0; i < 2 * n; i++)
+    pop();
 }
 
 }
-
 
 /*
 float->float splitjoin FFTReorderSimple(int n){
@@ -194,26 +170,26 @@ float->float filter FFTReorderSimple(int n) {
   }
 
   work push 2*n pop 2*n {
-        int i;
-        
-        for (i = 0; i < totalData; i+=4)
-        {
-            push(peek(i));
-            push(peek(i+1));
-        }
-        
-        for (i = 2; i < totalData; i+=4)
-        {
-            push(peek(i));
-            push(peek(i+1));
-        }
-        
-        for (i=0;i<n;i++)
-        {
-            pop();
-            pop();
-        }
+    int i;
+
+    for (i = 0; i < totalData; i+=4)
+    {
+      push(peek(i));
+      push(peek(i+1));
     }
+
+    for (i = 2; i < totalData; i+=4)
+    {
+      push(peek(i));
+      push(peek(i+1));
+    }
+
+    for (i=0;i<n;i++)
+    {
+      pop();
+      pop();
+    }
+  }
 }
 
 

@@ -27,7 +27,7 @@ elsif($help){
 }
 
 sub ProfSingle{
-	RunTestWithThread("$single[0]", "$single[1]", "-u 1", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+	RunTestWithThread("$single[0]", "$single[1]", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
 }
 
 sub ProfAll{
