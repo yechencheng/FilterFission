@@ -155,7 +155,7 @@ sub RunTestWithThread{
 			system("./$output -i $itr -t 2>> time.txt");
 		}
 		else{
-			system("./output -i $itr -t");
+			system("./$output -i $itr -t");
 		}
 	}
 	LogInfo("`date`\t $src : END");
