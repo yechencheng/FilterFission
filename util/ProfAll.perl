@@ -27,7 +27,14 @@ elsif($help){
 }
 
 sub ProfSingle{
-	RunTestWithThread("$single[0]", "$single[1]", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+	if($single[1] == 0){
+		for(my $C=16; $C >= 1; $C--){
+			RunTestWithThread("$single[0]", "$C", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+		}
+	}
+	else{
+		RunTestWithThread("$single[0]", "$single[1]", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+	}
 }
 
 sub ProfAll{
@@ -143,7 +150,13 @@ sub RunTestWithThread{
 		MassifData($MassifFlag, $output, "-i $itr $Rflag");
 	}
 	if($time){
-		system("./$output -i $itr -t");
+		if($single[1] == 0){
+			system("echo $C >> time.txt");
+			system("./$output -i $itr -t 2>> time.txt");
+		}
+		else{
+			system("./output -i $itr -t");
+		}
 	}
 	LogInfo("`date`\t $src : END");
 }
