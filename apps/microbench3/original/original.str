@@ -1,8 +1,9 @@
 void->void pipeline original{
-	int n = 1<<10;
+	int n = (1<<11)+2;
 	add source(n);
 	add s1(n);
-	add s2(n)
+	add s2(n);
+	add printer();
 }
 
 void->int filter source(int n){
@@ -13,7 +14,7 @@ void->int filter source(int n){
 	}
 }
 
-int->void filter printer{
+int->void filter printer(){
 	work pop 1{
 		//print(peek(0));
 		pop();

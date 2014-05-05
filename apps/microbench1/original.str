@@ -1,5 +1,5 @@
 void->void pipeline original{
-	int DEPTH=4;
+	int DEPTH=8;
 	int INPUT=1<<20;
 	int G=INPUT;
 

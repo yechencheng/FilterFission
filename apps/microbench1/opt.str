@@ -1,7 +1,7 @@
 void->void pipeline opt{
-	int DEPTH=4;
+	int DEPTH=8;
 	int INPUT=1<<20;
-	int G=1024;
+	int G=256;
 
 	add source(INPUT);
 	for(int i = 0; i < DEPTH; i++)
@@ -17,9 +17,9 @@ void->int filter source(int n){
 }
 
 int->int filter process(int n){
-	work pop n push n{
-		int[n] tmp1;
-		int[n] tmp2;
+	int[n] tmp1;
+	int[n] tmp2;
+	work pop n push n{	
 		for(int i = 0; i < n; i++)
 			tmp1[i] = pop();
 		for(int i = 0; i < n; i++)

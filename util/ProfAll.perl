@@ -2,13 +2,13 @@
 use Cwd;
 use Getopt::Long;
 
-GetOptions ("single=s{3}" => \@single, #src,thread,itr
-			"batch" => \$batch,
+GetOptions ("single|s=s{3}" => \@single, #src,thread,itr
+			"batch|b" => \$batch,
 			"help" => \$help,
 			"perf" => \$perf,
 			"massif" => \$massif,
-			"nocompile" => \$nocompile,
-			"time" => \$time
+			"nocompile|noc" => \$nocompile,
+			"time|t" => \$time
 			);
 
 if($batch){
@@ -19,21 +19,21 @@ elsif(@single){
 }
 elsif($help){
 	print("ProfAll [--batch | --single source thread itr ] [--perf] [--massif] [--nocompile]\n
-			--batch : profile all apps\n
-			--single : profile single apps\n
+			--batch|b : profile all apps\n
+			--single|s : profile single apps\n
 			--perf : profile cache miss\n
 			--massif : profile memory\n
-			--nocompile : do not carry compiling phase\n");
+			--nocompile|noc : do not carry compiling phase\n");
 }
 
 sub ProfSingle{
 	if($single[1] == 0){
 		for(my $C=16; $C >= 1; $C--){
-			RunTestWithThread("$single[0]", "$C", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+			RunTestWithThread("$single[0]", "$C", "-u 0 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
 		}
 	}
 	else{
-		RunTestWithThread("$single[0]", "$single[1]", "-u 1 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
+		RunTestWithThread("$single[0]", "$single[1]", "-u 0 -O0", "$single[2]", " ", "--stacks=yes --max-stackframe=8589934592 --main-stacksize=8589934592 ");
 	}
 }
 
