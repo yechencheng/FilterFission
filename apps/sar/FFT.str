@@ -152,51 +152,42 @@ complex->complex filter Transpose(int rows, int cols)
         }
     }
 
-    complex->complex pipeline FFT1D(int rows)
-    {
-        add complex->complex filter{
-            work pop rows push rows*rows/4{
-                for(int i = 0; i < rows/4; i++)
-                    for(int j = 0; j < rows; j++)
-                        push(peek(j));
-                    for(int i = 0; i < rows; i++)
-                        pop();
-                }
-            }
-            add complex->complex filter{
-                float[rows] cos_value;
-                float[rows] sin_value;
-
-                init {
-                    for (int i = 0; i < rows; i++) {
-                        cos_value[i] = cos(PI2 * (float)i / (float)rows);
-                        sin_value[i] = sin(PI2 * (float)i / (float)rows);
-                    }
-                }
-                work push rows pop rows{
-                    complex[rows] temp;
-                    for (int i = 0; i < m; i++) {
-                        float real = 0;
-                        float imag = 0;
-
-                        for (int j = 0; j < rows; j++) {
-                            int k = (i * j) % rows;
-
-                            complex t = peek(j);
-                            real += (t.real * cos_value[k]) + (t.imag * sin_value[k]);
-                            imag += (t.imag * cos_value[k]) - (t.real * sin_value[k]);
-                        }
-                        temp[i].real = real;
-                        temp[i].imag = imag;
-                        push(temp[i]);
-                    }
-
-                    for (int i = 0; i < rows; i++) {
-                        pop();
-                    }
-                }
-            }
+   complex->complex filter FFT1D(int rows) 
+{
+    float[rows] cos_value;
+    float[rows] sin_value;
+    
+    init {
+        for (int i = 0; i < rows; i++) {
+            cos_value[i] = cos(PI2 * (float)i / (float)rows);
+            sin_value[i] = sin(PI2 * (float)i / (float)rows);
         }
+    }
+    
+    work push rows pop rows {
+        complex[rows] temp;
+        
+        for (int i = 0; i < rows; i++) {
+            float real = 0;
+            float imag = 0;
+            
+            for (int j = 0; j < rows; j++) {
+                int k = (i * j) % rows;
+                
+                complex t = peek(j);
+                real += (t.real * cos_value[k]) + (t.imag * sin_value[k]);
+                imag += (t.imag * cos_value[k]) - (t.real * sin_value[k]);
+            }
+            temp[i].real = real;
+            temp[i].imag = imag;
+        }
+        
+        for (int i = 0; i < rows; i++) {
+            pop();
+            push(temp[i]);
+        }
+    }
+}
 
         complex->complex filter FFT2D(int rows, int cols) 
         {
