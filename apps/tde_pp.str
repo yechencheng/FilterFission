@@ -51,7 +51,7 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
 	// optimize away a splitjoint that does nothing.
     	add pipeline {
 	    add Expand(N, B);	                   // up to power of 2 for fft
-	    add FFTKernel4(B, FFTDataParallelism); // fft
+	    add FFTKernel5(B, FFTDataParallelism); // fft
 	    add Multiply_by_float(B, mult);        // mult 
 	    add IFFTKernel4(B, FFTDataParallelism);// ifft
 	    add Contract(N, B);                    // back to original size
@@ -211,4 +211,158 @@ float->void filter sink (int m) {
 			}
 		}
 	}
+}
+
+float->float filter CombineIDFT(int n) {
+
+  // coefficients, real and imaginary interleaved
+  float[n] w;
+
+  init {
+      float wn_r = (float)cos(2 * 3.141592654 / n);
+      float wn_i = (float)sin(2 * 3.141592654 / n);
+      float real = 1;
+      float imag = 0;
+      float next_real, next_imag;
+      for (int i=0; i<n; i+=2) {
+	  w[i] = real;
+	  w[i+1] = imag;
+	  next_real = real * wn_r - imag * wn_i;
+	  next_imag = real * wn_i + imag * wn_r;
+	  real = next_real;
+	  imag = next_imag;
+      }
+  }
+
+  work push 2*n pop 2*n {
+        int i;
+	float[2*n] results;
+
+        for (i = 0; i < n; i += 2)
+        {
+	    int i_plus_1 = i+1;
+
+	    float y0_r = peek(i);
+            float y0_i = peek(i_plus_1);
+            
+	    float y1_r = peek(n + i);
+            float y1_i = peek(n + i_plus_1);
+
+	    // load into temps to make sure it doesn't got loaded
+	    // separately for each load
+	    float weight_real = w[i];
+	    float weight_imag = w[i_plus_1];
+
+            float y1w_r = y1_r * weight_real - y1_i * weight_imag;
+            float y1w_i = y1_r * weight_imag + y1_i * weight_real;
+
+            results[i] = y0_r + y1w_r;
+            results[i + 1] = y0_i + y1w_i;
+
+	    results[n + i] = y0_r - y1w_r;
+            results[n + i + 1] = y0_i - y1w_i;
+        }
+
+	for (i = 0; i < n; i++) {
+	    pop();
+	    pop();
+	}
+
+        for (i = 0; i < 2 * n; i+= 2) {
+            push(results[i]);
+	    push(results[i+1]);
+        }
+    }
+
+}
+float->float filter CombineIDFTFinal(int n) {
+
+  // coefficients, real and imaginary interleaved
+  float[n] w;
+  float n_recip;
+
+  init {
+      float wn_r = (float)cos(2 * 3.141592654 / n);
+      float wn_i = (float)sin(2 * 3.141592654 / n);
+      n_recip = 1.0/((float)n);
+      // scales coefficients for y1 (but not y0)
+      float real = n_recip;
+      float imag = 0;
+      float next_real, next_imag;
+      for (int i=0; i<n; i+=2) {
+	  w[i] = real;
+	  w[i+1] = imag;
+	  next_real = real * wn_r - imag * wn_i;
+	  next_imag = real * wn_i + imag * wn_r;
+	  real = next_real;
+	  imag = next_imag;
+      }
+  }
+
+  work push 2*n pop 2*n {
+        int i;
+	float[2*n] results;
+
+        for (i = 0; i < n; i += 2)
+        {
+	    int i_plus_1 = i+1;
+
+	    // y0: extra mult to scale
+	    float y0_r = n_recip * peek(i);
+            float y0_i = n_recip * peek(i_plus_1);
+            
+	    float y1_r = peek(n + i);
+            float y1_i = peek(n + i_plus_1);
+
+	    // load into temps to make sure it doesn't got loaded
+	    // separately for each load
+	    float weight_real = w[i];
+	    float weight_imag = w[i_plus_1];
+
+            float y1w_r = y1_r * weight_real - y1_i * weight_imag;
+            float y1w_i = y1_r * weight_imag + y1_i * weight_real;
+
+            results[i] = y0_r + y1w_r;
+            results[i + 1] = y0_i + y1w_i;
+
+	    results[n + i] = y0_r - y1w_r;
+            results[n + i + 1] = y0_i - y1w_i;
+        }
+
+	for (i = 0; i < n; i++) {
+	    pop();
+	    pop();
+	}
+
+        for (i = 0; i < 2 * n; i+= 2) {
+            push(results[i]);
+	    push(results[i+1]);
+        }
+    }
+
+}
+
+// N-way complex IFFT where N is power of 2
+float->float pipeline IFFTKernel5(int n, int DataParallelism) {
+    if (DataParallelism == 1) {
+	add FFTReorder(n);
+	for(int j=2; j<n; j*=2) {
+	    add CombineIDFT(j);
+	}
+	add CombineIDFTFinal(n);
+    } else { 
+	add float->float splitjoin {
+	    split roundrobin(2*n);
+	    for(int i=0; i<DataParallelism; i++) {    
+		add pipeline {
+		    add FFTReorder(n);
+		    for(int j=2; j<n; j*=2) {
+			add CombineIDFT(j);
+		    }
+		    add CombineIDFTFinal(n);
+		}
+	    }
+	    join roundrobin(2*n);
+	}
+    }
 }
