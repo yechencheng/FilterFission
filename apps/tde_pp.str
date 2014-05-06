@@ -51,9 +51,9 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
 	// optimize away a splitjoint that does nothing.
     	add pipeline {
 	    add Expand(N, B);	                   // up to power of 2 for fft
-	    add FFTKernel5(B, FFTDataParallelism); // fft
+	    add FFTKernel4(B, FFTDataParallelism); // fft
 	    add Multiply_by_float(B, mult);        // mult 
-	    add IFFTKernel4(B, FFTDataParallelism);// ifft
+	    add IFFTKernel5(B, FFTDataParallelism);// ifft
 	    add Contract(N, B);                    // back to original size
 	}
 } else {
