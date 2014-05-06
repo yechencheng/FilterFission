@@ -162,8 +162,8 @@ void->void pipeline SAR()
 // print results
 float->void filter FloatPrinter() {
     work pop 1 { 
+        //println(peek(0));
         pop();
-        //println(pop());
     }
 }
 
