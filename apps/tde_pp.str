@@ -34,7 +34,7 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
     int N = 36; // number of input samples  (N_RG in C Code)
     /* Pulse repetition intervals per data cube */
     int M = 15; // number of pri's in a  (N_PRI in C Code)
-    int B = 1<<22; // smallest power of 2 above N
+    int B = 1<<20; // smallest power of 2 above N
                 // Data is [N_CH][N_RG][N_PRI][2]
     float mult = 0.00390625; // multiplier
     int DataParallelism = 1; // any number 0 < DataParallelism <= N
@@ -57,6 +57,7 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
 	    add Contract(N, B);                    // back to original size
 	}
 } else {
+	/*
 	// Same as above with data-parallelism.
 	add splitjoin {
 		split roundrobin(2);
@@ -71,13 +72,14 @@ void->void pipeline tde_pp {	// pipeline-parallel tde
 		}
 		join roundrobin(2);
 	}
+	*/
 }
 add Transpose(M, N);
 add FileWriter<float>("tde_pp.out");
     //add sink(CH * M);
 
 }
-
+/*
 
 float->float filter PassF(){
 	work pop 1 push 1{
@@ -111,7 +113,8 @@ float->float splitjoin Expand(int N, int B){
 	add GenF();
 	join roundrobin(2*N, 2*(B-N));
 }
-/*
+*/
+
 float->float filter Contract(int N, int B) {
   float x;
   work pop 2*B push 2*N {
@@ -136,7 +139,7 @@ float->float filter Expand(int N, int B) {
   }
 }
 }
-*/
+
 
 float->float filter Multiply_by_float(int B, float m) {
 	work pop 8 push 8 { 
