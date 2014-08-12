@@ -1,12 +1,16 @@
-void->void pipeline test() {
-  int n = 1 << 20;
-  int m = 4;
+void->void pipeline blurxyProm() {
+  //constraint : (n-2m)%ts = 0
+  int n = 1<<20;
+  int m = 8; //4
+  int ts = 16;
+
 
   add Source();
-
-  Original(n, m);
-
-  add Output();
+  add Original(n, m);
+  //add MultiTiling(n, m, 4);
+  //add Promotion1(n, m, ts);
+  add Drop();
+  //add Output();
 }
 
 void->float filter Source()
@@ -16,42 +20,49 @@ void->float filter Source()
   }
 }
 
+//basic filter for smoothing, only 1 level, consume n data and produce n-2 data
 float->float filter OProcess(int n){
   float[n] input;
   float[n] data;
   
-  work push n pop n - 2{
+  work push n-2 pop n{
     for(int i = 0; i < n; i++)
       input[i] = pop();
-    for(int i = 1; i < n - 1; i++)
-      data[i] = input[i - 1] + input[i] + input[i + 1];
-    for(int i = 1; i < n - 1; i++)
+    for(int i = 1; i < n-1; i++)
+      data[i] = (input[i-1] + input[i] + input[i+1])/3;
+    for(int i = 1; i < n-1; i++)
       push(data[i]);
   }
 }
 
+//Original bluxry, begin with n elements, m level, and will produce n-2m data. 
 float->float pipeline Original(int n, int m){
   for(int i = 0; i < m; i++)
-    add OProcess(n - 2 * m);
+    add OProcess(n-2*i);
 }
 
+
 //ts = tile size
+//generate input for naive tiling, redudnant produce the data for next filter
 float->float filter MTSource(int n, int m, int ts){
-  float[n] input;
-  work pop n push (n-2*m-ts)/ts*(2*m+ts) {
+  float[n+ts] input;
+  work pop n push (n-2*m+ts-1)/ts*(2*m+ts) {
     for(int i = 0; i < n; i++)
       input[i] = pop();
+    for(int i = n; i < n+ts; i++)
+      input[i] = 0;
 
     //(n-2m)%ts = 0
-    for(int i = 0; i <= n - 2*m - ts; i += ts){
+    for(int i = 0; i < n - 2*m; i += ts){
       for(int j = 0; j < 2*m + ts; j++)
         push(input[i+j]);
     }
   }
 }
 
+//Naive tiling, with significant data redundantce, redundant at first
 float->float pipeline MultiTiling(int n, int m, int ts){
-  add TSource(n, m, ts);
+  add MTSource(n, m, ts);
   for(int i = 0; i < m; i++)
     add OProcess(ts + 2*m - 2*i);
 }
@@ -62,22 +73,33 @@ float->float filter PassF(int n){
   }
 }
 
+//promotion at each level, no trading off
 float->float filter Prom1(int n, int m, int ts, int level){
-  bool stat = true;
+  // 0:1st Iteration of 1st execution, 1: general case, 2: 1st iteration of other executions
+  // case 0 can be replaced by prework
+  int stat = 0; 
+  int upstat = (n-2*m)/ts;
   float[ts+2+2*m] input;
   float[ts+2+2*m] data;
   work pop ts+2 push ts+2{
     int upper = ts+2;
-    if(stat){
-      pop();
-      pop();
-      upper = 2*(m-1-level)+ts;
+    
+    if(stat == 0){
+      stat = 1;
+      upper += (m-level)*2;
     }
+    else if(stat == upstat+1){
+      pop();
+      pop();
+      stat = 1;
+      upper += (m-level)*2;
+    }
+    stat++;
 
     for(int i = 0; i < upper; i++)
       input[i] = pop();
     for(int i = 1; i < upper-1; i++)
-      data[i] = data[i-1] + data[i] + data[i+1];
+      data[i] = (input[i-1] + input[i] + input[i+1])/3;
     for(int i = 1; i < upper-1; i++)
       push(data[i]);
     push(data[upper-2]);
@@ -85,25 +107,55 @@ float->float filter Prom1(int n, int m, int ts, int level){
   }
 }
 
-float->float pipeline Promotion1(int n, int m, int ts){
-  for(int level = 1; level < m-1; level++){
-    Prom1(n, m, ts, level);
+//For the first level, the input should be rearranged, parts of the input should be redundant
+float->float filter InputProm1(int n, int m, int ts){
+  float[n] data;
+  work pop n push (n-2*m)/ts*(ts+2){ // -2: to keep IO rate consistency; real amount : n+(n-2*m)/ts*2-2
+    int upper = ts+2*m;
+    for(int i = 0; i < n; i++)
+      data[i] = pop();
+    for(int i = 0; i < upper; i++)
+      push(data[i]);
+    push(data[upper-2]);
+    push(data[upper-1]);
+    for(int i = upper; i < n; i += ts){
+      for(int j = 0; j < ts; j++){
+        push(data[i+j]);
+      }
+      if(i + ts == n) continue;
+      push(data[i+ts-2]);
+      push(data[i+ts-1]);
+    }
   }
-  OProcess(ts);
 }
 
-float->float filter Prom2(int n, int m, int ts, int level){
-  
+float->float pipeline Promotion1(int n, int m, int ts){
+  add InputProm1(n, m, ts);
+  for(int level = 1; level < m; level++){
+    add Prom1(n, m, ts, level);
+  }
+  add OProcess(ts+2);
 }
 
-float->float pipeline Promotion2(int n, int m, int ts){
-  
+float->void filter Drop(){
+  work pop 1{
+    pop();
+  }
 }
 
 float->void filter Output()
 {
   work pop 1 {
-    //println(pop());
-    pop();
+    println(pop());
+    //pop();
+  }
+}
+
+float->float filter OutputPass()
+{
+  work push 1 pop 1{
+    float x = pop();
+    println(x);
+    push(x);
   }
 }
