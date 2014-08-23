@@ -1,0 +1,109 @@
+void->void pipeline test() {
+  int n = 1 << 20;
+  int m = 4;
+
+  add Source();
+
+  Original(n, m);
+
+  add Output();
+}
+
+void->float filter Source()
+{
+  work push 1 {
+      push(4.13);
+  }
+}
+
+float->float filter OProcess(int n){
+  float[n] input;
+  float[n] data;
+  
+  work push n pop n - 2{
+    for(int i = 0; i < n; i++)
+      input[i] = pop();
+    for(int i = 1; i < n - 1; i++)
+      data[i] = input[i - 1] + input[i] + input[i + 1];
+    for(int i = 1; i < n - 1; i++)
+      push(data[i]);
+  }
+}
+
+float->float pipeline Original(int n, int m){
+  for(int i = 0; i < m; i++)
+    add OProcess(n - 2 * m);
+}
+
+//ts = tile size
+float->float filter MTSource(int n, int m, int ts){
+  float[n] input;
+  work pop n push (n-2*m-ts)/ts*(2*m+ts) {
+    for(int i = 0; i < n; i++)
+      input[i] = pop();
+
+    //(n-2m)%ts = 0
+    for(int i = 0; i <= n - 2*m - ts; i += ts){
+      for(int j = 0; j < 2*m + ts; j++)
+        push(input[i+j]);
+    }
+  }
+}
+
+float->float pipeline MultiTiling(int n, int m, int ts){
+  add TSource(n, m, ts);
+  for(int i = 0; i < m; i++)
+    add OProcess(ts + 2*m - 2*i);
+}
+
+float->float filter PassF(int n){
+  work pop 1 push 1{
+    push(pop());
+  }
+}
+
+float->float filter Prom1(int n, int m, int ts, int level){
+  bool stat = true;
+  float[ts+2+2*m] input;
+  float[ts+2+2*m] data;
+  work pop ts+2 push ts+2{
+    int upper = ts+2;
+    if(stat){
+      pop();
+      pop();
+      upper = 2*(m-1-level)+ts;
+    }
+
+    for(int i = 0; i < upper; i++)
+      input[i] = pop();
+    for(int i = 1; i < upper-1; i++)
+      data[i] = data[i-1] + data[i] + data[i+1];
+    for(int i = 1; i < upper-1; i++)
+      push(data[i]);
+    push(data[upper-2]);
+    push(data[upper-3]);
+  }
+}
+
+float->float pipeline Promotion1(int n, int m, int ts){
+  for(int level = 1; level < m-1; level++){
+    Prom1(n, m, ts, level);
+  }
+  OProcess(ts);
+}
+
+float->float filter Prom2(int n, int m, int ts, int level){
+  
+}
+
+float->float pipeline Promotion2(int n, int m, int ts){
+  
+}
+
+float->void filter Output()
+{
+  work pop 1 {
+    //println(pop());
+    pop();
+  }
+}
