@@ -1,12 +1,29 @@
+
 static{
   //constraint : (n-2m)%ts = 0
   int n = 16;
   int m = 3; //4
   int ts = 5;
-  int[m+1][ts+2*m] PromedComp;
+  //(m+1, ts+2m)
+  int[16][128] PromedComp;
+  
+  init{
+    //init Promoed Scheme
+    for(int i = 0; i < ts; i++){
+       PromedComp[0][i] = 0;
+       PromedComp[m][i] = 0;
+     }
+     for(int i = 1; i < m; i++){
+       for(int j = 0; j < ts; j++)
+         PromedComp[i][j] = 1;
+     }
+      PromedComp[1][2] = 2;
+  }
 }
 
+
 void->void pipeline blurxyProm() {
+
   add Source();
   //add Original(n, m);
   //add MultiTiling(n, m, 4);
@@ -18,8 +35,10 @@ void->void pipeline blurxyProm() {
 
 void->float filter Source()
 {
+  int cnt = 0;
   work push 1 {
-      push(4.13);
+      //push(4.13);
+      push(cnt++);
   }
 }
 
@@ -49,6 +68,7 @@ float->float pipeline Original(int n, int m){
 //generate input for naive tiling, redudnant produce the data for next filter
 float->float filter MTSource(int n, int m, int ts){
   float[n+ts] input;
+
   work pop n push (n-2*m)/ts*(2*m+ts) {
     for(int i = 0; i < n; i++)
       input[i] = pop();
@@ -134,12 +154,6 @@ float->float pipeline Promotion1(int n, int m, int ts){
   add OProcess(ts+2);
 }
 
-float->float filter PassF(int n){
-  work pop 1 push 1{
-    push(pop());
-  }
-}
-
 float->void filter Drop(){
   work pop 1{
     pop();
@@ -150,7 +164,6 @@ float->void filter Output()
 {
   work pop 1 {
     println(pop());
-    //pop();
   }
 }
 
@@ -162,6 +175,7 @@ float->float filter OutputPass()
     push(x);
   }
 }
+
 
 //Bellow : not verify yet
 
@@ -207,19 +221,8 @@ float->float filter Prom2(int ts, int m){
 
 
 float->float pipeline PromPartally(int n, int m, int ts){
-  //init Promoed Data
-  {
-    for(int i = 0; i < ts; i++){
-      PromedComp[0][i] = 0;
-      PromedComp[m][i] = 0;
-    }
-    for(int i = 1; i < m; i++){
-      for(int j = 0; j < ts; j++)
-        PromedComp[i][j] = 0;
-    }
-  }
-
   add MTSource(n, m, ts);
-  for(int i = 0; i < m; i++)
-    add Prom2(ts+2*m-2*i, m);
+  for(int i = 0; i < m; i++){
+    add Prom2(ts+2*m-2*i, i);
+  }
 }
