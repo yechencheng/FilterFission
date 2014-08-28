@@ -1,23 +1,23 @@
-
 static{
   //constraint : (n-2m)%ts = 0
-  int n = 16;
-  int m = 3; //4
-  int ts = 5;
+  int n = 14;
+  int m = 2; //amount of levels
+  int ts = 1; //tile size of last level
+
   //(m+1, ts+2m)
-  int[16][128] PromedComp;
+  int MAXTS = 128;
+  int NOPROM = MAXTS;
+  int[32][128] InPromedComp;  //Iterations have been promoted to previous filter
+  int[32][128] OutPromedComp; //Iterations promoted from success filter
   
   init{
-    //init Promoed Scheme
-    for(int i = 0; i < ts; i++){
-       PromedComp[0][i] = 0;
-       PromedComp[m][i] = 0;
+    //init Promoed Scheme. 128=NONE
+     for(int i = 0; i <= m; i++){
+       for(int j = 0; j < ts+2*m; j++)
+         PromedComp[i][j] = MAXTS;
      }
-     for(int i = 1; i < m; i++){
-       for(int j = 0; j < ts; j++)
-         PromedComp[i][j] = 1;
-     }
-      PromedComp[1][2] = 2;
+
+
   }
 }
 
@@ -26,7 +26,7 @@ void->void pipeline blurxyProm() {
 
   add Source();
   //add Original(n, m);
-  //add MultiTiling(n, m, 4);
+  //add MultiTiling(n, m, ts);
   //add Promotion1(n, m, ts);
   add PromPartally(n, m, ts);
   //add Drop();
@@ -182,7 +182,7 @@ float->float filter OutputPass()
 //InPromed[i]: Output[i] is computed by previous filter, and is placed in Input[InPromoted[i]]. OutPromoted[i]: 
 float->float filter Prom2(int ts, int m){
   int GetNext(int current, int[ts] flag){
-    while(flag[current] == 0)
+    while(flag[current] == NOPROM)
       current++;
     return current;
   }
@@ -203,13 +203,13 @@ float->float filter Prom2(int ts, int m){
       input[i] = pop();
     
     for(int i = 1; i < ts-1; i++){
-      if(InPromed[i] == 0)
+      if(InPromed[i] == NOPROM)
         output[i] = (input[i-1] + input[i] + input[i+1])/3;
       else
         output[i] = input[InPromed[i]];
     }
     for(int i = 2; i < ts-2; i++){
-      if(OutPromed[i] != 0){
+      if(OutPromed[i] != NOPROM){
         output[OutPromed[i]] = (output[i-1]+output[i]+output[i+1])/3;
       }
     }
@@ -222,7 +222,10 @@ float->float filter Prom2(int ts, int m){
 
 float->float pipeline PromPartally(int n, int m, int ts){
   add MTSource(n, m, ts);
+  
   for(int i = 0; i < m; i++){
     add Prom2(ts+2*m-2*i, i);
   }
+
+  
 }
