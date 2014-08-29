@@ -1,26 +1,35 @@
 static{
   //constraint : (n-2m)%ts = 0
-  int n = 14;
-  int m = 2; //amount of levels
-  int ts = 1; //tile size of last level
+  int n = 16;
+  int m = 4; //amount of levels
+  int ts = 2; //tile size of last level
 
   //(m+1, ts+2m)
   int MAXTS = 128;
-  int NOPROM = MAXTS;
+  int NOOUT = MAXTS-1;
+  int REDUNDANT = MAXTS;
+  int UNREDUNDANT = MAXTS;
   int[32][128] InPromedComp;  //Iterations have been promoted to previous filter
   int[32][128] OutPromedComp; //Iterations promoted from success filter
-  
-  init{
-    //init Promoed Scheme. 128=NONE
-     for(int i = 0; i <= m; i++){
-       for(int j = 0; j < ts+2*m; j++)
-         PromedComp[i][j] = MAXTS;
-     }
+  int NRedun = 2;
 
+  int upstat = (n-2*m)/ts;
+  
+  int tmp = 0;
+  init{
+    
+    //init Promoed Scheme. 128=NONE
+    for(int i = 0; i <= m; i++){
+      for(int j = 0; j <= ts+2*m; j++){
+        InPromedComp[i][j] = UNREDUNDANT;
+      }
+    }
+
+    //HERE : insert code to define InPromedComp
+    InPromedComp[1][4] = 0;
 
   }
 }
-
 
 void->void pipeline blurxyProm() {
 
@@ -37,8 +46,8 @@ void->float filter Source()
 {
   int cnt = 0;
   work push 1 {
-      //push(4.13);
-      push(cnt++);
+    //push(4.13);
+    push(cnt++);
   }
 }
 
@@ -94,7 +103,7 @@ float->float filter Prom1(int n, int m, int ts, int level){
   // 0:1st Iteration of 1st execution, 1: general case, 2: 1st iteration of other executions
   // case 0 can be replaced by prework
   int stat = 0; 
-  int upstat = (n-2*m)/ts;
+  
   float[ts+2+2*m] input;
   float[ts+2+2*m] data;
   work pop ts+2 push ts+2{
@@ -105,8 +114,8 @@ float->float filter Prom1(int n, int m, int ts, int level){
       upper += (m-level)*2;
     }
     else if(stat == upstat+1){
-      pop();
-      pop();
+      //pop();
+      //pop();
       stat = 1;
       upper += (m-level)*2;
     }
@@ -118,8 +127,8 @@ float->float filter Prom1(int n, int m, int ts, int level){
       data[i] = (input[i-1] + input[i] + input[i+1])/3;
     for(int i = 1; i < upper-1; i++)
       push(data[i]);
-    push(data[upper-2]);
     push(data[upper-3]);
+    push(data[upper-2]);
   }
 }
 
@@ -148,6 +157,7 @@ float->float filter InputProm1(int n, int m, int ts){
 //optimial promotion.
 float->float pipeline Promotion1(int n, int m, int ts){
   add InputProm1(n, m, ts);
+  //add OutputPass();
   for(int level = 1; level < m; level++){
     add Prom1(n, m, ts, level);
   }
@@ -179,6 +189,66 @@ float->float filter OutputPass()
 
 //Bellow : not verify yet
 
+//Prom2 is not promotion, it eliminate redundancy through output the data firstly computed
+//It is an specific case of promotion, and optimal one.
+float->float filter Prom2(int ts, int pos){
+  float[ts] input;
+  float[ts] output;
+  float[ts] redundnat;
+  int[ts] HasComputed;
+  int[ts] OutputState;
+  int ninput = 0;
+  int stat = 0;
+
+  init{
+    for(int i = 0; i < ts; i++){
+      HasComputed[i] = InPromedComp[pos][i];
+      if(HasComputed[i] != UNREDUNDANT)
+        ninput++;
+    }
+
+    int tmp = 0;
+    for(int i = 0; i < ts; i++){
+      if(InPromedComp[pos+1][i] != UNREDUNDANT)
+        OutputState[i] = tmp++;
+      else OutputState[i] = UNREDUNDANT;
+    }
+  }
+
+  work pop ts push ts-2{
+    //proceed input stat, which iteration it is. (the first, the first of a execution, others)
+    if(stat == upstat) stat = 1;
+    if(stat != 0){  //can be done through prework
+      for(int i = 0; i < ninput; i++)
+        redundnat[i] = pop();
+    }
+    else stat = 1;
+    
+    for(int i = 0; i < ts; i++)
+      input[i] = pop();
+
+    //proceed output of this filter
+    for(int i = 1; i < ts-1; i++){
+      if(HasComputed[i] != UNREDUNDANT && stat != 1)
+        output[i] = redundnat[HasComputed[i]];
+      else
+        output[i] = (input[i-1]+input[i]+input[i+1])/3;
+    }
+
+    //proceed redundant for next filter and its succeed iteration
+    //push ts+ninput data
+    for(int i = 1; i < ts-1; i++){
+      push(output[i]);
+    }
+    for(int i = 2; i < ts-2; i++){
+      if(OutputState[i] != UNREDUNDANT){
+        push(output[i]);
+      }
+    }
+    stat++;
+  }
+}
+/*
 //InPromed[i]: Output[i] is computed by previous filter, and is placed in Input[InPromoted[i]]. OutPromoted[i]: 
 float->float filter Prom2(int ts, int m){
   int GetNext(int current, int[ts] flag){
@@ -218,11 +288,10 @@ float->float filter Prom2(int ts, int m){
       push(output[i]);
   }
 }
-
+*/
 
 float->float pipeline PromPartally(int n, int m, int ts){
   add MTSource(n, m, ts);
-  
   for(int i = 0; i < m; i++){
     add Prom2(ts+2*m-2*i, i);
   }
