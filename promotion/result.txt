@@ -1,0 +1,21 @@
+Performance:
+
+	Configuration
+	  int n = 1<<20;
+	  int m = 8; //4
+	  int ts = 16;
+	  -c 8
+	  -i 100
+
+	  Pro: 1.418
+	  Ori: 2.5
+	  Multi: 3.3
+	  PartialPromotion: 2.97 2.68403 2.5 according to different scheme
+
+Validity:
+	Configuration
+		(n, m, ts)
+		(16, 1, 7)
+		(16, 2, 4)
+		(16, 3, 5)
+		(16, 4, 4)
