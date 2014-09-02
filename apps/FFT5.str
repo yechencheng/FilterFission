@@ -1,6 +1,6 @@
 
 void->void pipeline FFT5() {
-  int N = 1 <<20;
+  int N = 1 <<24;
 
 
   add FFTTestSource(N);
@@ -9,13 +9,13 @@ void->void pipeline FFT5() {
   
   add PrimTilingDFT(N);
   //add Fused_CombineDFT(N);
-  /*
-  for(int j=2; j<=N; j*=2)
-    add CombineDFT1(j);
-  */
+  
+  //for(int j=2; j<=N; j*=2)
+    //add CombineDFT1(j);
+  
     //add FileWriter<float>("FFT5.out");
-    add FloatPrinter();
-   //add Drop();
+    //add FloatPrinter();
+   add Drop();
 }
 
   float->void filter Drop(){
