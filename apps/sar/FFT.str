@@ -15,7 +15,52 @@ complex->complex pipeline FTX2D(int rows, int cols)
 	add FFT2Dshift(rows, cols);
 }
 
-complex->complex pipeline FTY2D(int rows, int cols) 
+complex->complex pipeline FTY2D(int rows, int cols){
+	add OrigFTY2D(rows, cols);
+	//add OptFTY2D(rows, cols);
+	//add NaiveFTY2D(rows, cols);
+}
+
+complex->complex pipeline iFTY2D(int rows, int cols){
+	add OrigiFTY2D(rows, cols);
+	//add OptiFTY2D(rows, cols);
+	//add NaiveiFTY2D(rows, cols);
+	//add NaiveFTY2D(rows, cols);
+}
+
+complex->complex pipeline OrigFTY2D(int rows, int cols){
+    add Transpose(rows, cols);
+    add FFT2Dshift(cols, rows);    
+	add OrigFFT2D(cols, rows);
+    add FFT2Dshift(cols, rows);    
+    add Transpose(cols, rows);
+}
+
+complex->complex pipeline OrigiFTY2D(int rows, int cols){
+    add Transpose(rows, cols);
+    add FFT2Dshift(cols, rows);    
+	add OrigiFFT2D(cols, rows);
+    add FFT2Dshift(cols, rows);    
+    add Transpose(cols, rows);
+}
+
+complex->complex pipeline NaiveFTY2D(int rows, int cols){
+	add NaiveTranspose(rows, cols);
+	add NaiveFFT2DShift(cols, rows);
+	add NaiveiFFT2D(cols, rows);
+	add FFT2Dshift(cols, rows);
+	add Transpose(cols, rows);
+}
+
+complex->complex pipeline NaiveiFTY2D(int rows, int cols){
+	add NaiveTranspose(rows, cols);
+	add NaiveFFT2DShift(cols, rows);
+	add NaiveiFFT2D(cols, rows);
+	add FFT2Dshift(cols, rows);
+	add Transpose(cols, rows);
+}
+
+complex->complex pipeline OptFTY2D(int rows, int cols) 
 {
 	add Fused_Transpose_FFT2DShift(rows, cols);
     //add Transpose(rows, cols);
@@ -26,15 +71,7 @@ complex->complex pipeline FTY2D(int rows, int cols)
 	add Fused_Transpose_FFT2DShift(cols, rows);
 }
 
-complex->complex pipeline iFTX2D(int rows, int cols) 
-{
-	add FFT2Dshift(rows, cols);
-	add iFFT2D(rows, cols);
-	add FFT2Dshift(rows, cols);
-}
-
-
-complex->complex pipeline iFTY2D(int rows, int cols) 
+complex->complex pipeline OptiFTY2D(int rows, int cols) 
 {
 	add Fused_Transpose_FFT2DShift(rows, cols);
     //add Transpose(rows, cols);
@@ -44,6 +81,18 @@ complex->complex pipeline iFTY2D(int rows, int cols)
     //add Transpose(cols, rows);
 	add Fused_Transpose_FFT2DShift(cols, rows);
 }
+
+
+
+complex->complex pipeline iFTX2D(int rows, int cols) 
+{
+	add FFT2Dshift(rows, cols);
+	add iFFT2D(rows, cols);
+	add FFT2Dshift(rows, cols);
+}
+
+
+
 
 // transpose a 2D stream
 complex->complex filter Transpose(int rows, int cols)
@@ -60,6 +109,53 @@ complex->complex filter Transpose(int rows, int cols)
 	}
 }
 
+complex->complex filter NaiveTranspose(int rows, int cols){
+	work push rows*cols*rows pop rows*cols{
+		for(int i = 0; i < rows; i++)
+			for(int j = 0; j < cols; j++)
+				for(int k = 0; k < rows; k++)
+					push(peek(k*cols+j));
+		for(int i = 0; i < rows*cols; i++){
+			pop();
+		}
+	}
+}
+
+complex->complex filter NaiveFFT2DShift(int rows, int cols){
+	work push rows pop rows{
+		for(int i = 0; i < rows; i++){
+			push(pop());
+		}
+	}
+}
+
+complex->complex filter NaiveiFFT2D(int rows, int cols){
+	int l = 0;
+		float[rows] cos_value;
+	float[rows] sin_value;
+
+	init {
+		for (int i = 0; i < rows; i++) {
+			cos_value[i] = cos(PI2 * (float)i / (float)rows);
+			sin_value[i] = sin(PI2 * (float)i / (float)rows);
+		}
+	}
+	work push 1 pop rows{
+			float real = 0;
+			float imag = 0;
+
+			for (int k = 0; k < rows; k++) {
+				l = (++l) % rows;
+				complex t = peek(k);
+				real += (t.real * cos_value[l]) + (t.imag * sin_value[l]);
+				imag += (t.imag * cos_value[l]) - (t.real * sin_value[l]);
+			}
+			complex rt;
+			rt.real=real;
+			rt.imag=imag;
+			push(rt);
+	}
+}
 
 // 1D FFT shift: swap the two halves of a vector
 complex->complex filter FFT1Dshift(int rows) 
@@ -220,14 +316,14 @@ complex->complex filter FFT2D(int rows, int cols)
 		}
 		for (int i = 0; i < rows; i++) {
 			pop();
-		}    
+		}
 	}
 }
 
 
-/*
+
 // 2D FFT
-complex->complex filter FFT2D(int rows, int cols) 
+complex->complex filter OrigFFT2D(int rows, int cols) 
 {
     float[rows] cos_value;
     float[rows] sin_value;
@@ -268,7 +364,7 @@ complex->complex filter FFT2D(int rows, int cols)
         }
     }
 }
-*/
+
 
 complex->complex filter iFFT2D(int rows, int cols) 
 {
@@ -310,9 +406,9 @@ complex->complex filter iFFT2D(int rows, int cols)
 	}
 }
 
-/*
+
 // 2D iFFT
-complex->complex filter iFFT2D(int rows, int cols)
+complex->complex filter OrigiFFT2D(int rows, int cols)
 {
     float[rows] cos_value;
     float[rows] sin_value;
@@ -353,4 +449,4 @@ complex->complex filter iFFT2D(int rows, int cols)
         }
     }
 }
-*/
+
