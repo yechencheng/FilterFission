@@ -432,6 +432,10 @@ complex->complex filter convolutionInterpolation(int n,
 
     float kxs = (float) is * dkx;
     float[nx] KX;
+    complex[nx][m] F;
+    int[I][m]   ikx;
+    float[I][m] SINC;
+    float[I][m] HAM;
 
     // replacing with scalar icKX_j, which satisfies only def/use
     //int[m]      icKX;
@@ -465,11 +469,7 @@ complex->complex filter convolutionInterpolation(int n,
     }
     
     work push nx*m pop n*m {
-        complex[nx][m] F;
-        int[I][m]   ikx;
-        float[I][m] SINC;
-        float[I][m] HAM;
-
+        
         for (int i = 0; i < n; i++) {
             for (int l = 0; l < I; l++) {
                 for (int j = 0; j < m; j++) {
@@ -491,7 +491,7 @@ complex->complex filter convolutionInterpolation(int n,
                     HAM[l][j] = 0.54 + (0.46 * cos((PI / kxs) * (nKX_l_j - kx[i][j])));
                 }
             }
-   
+
             for (int j = 0; j < I; j++) {
                 for(int l = 0; l < m; l++) {
                     complex t = peek((i*m) + l);
@@ -505,14 +505,16 @@ complex->complex filter convolutionInterpolation(int n,
             }
         }
 
-        for (int j = 0; j < nx; j++) {
-            for(int l = 0; l < m; l++) {
-                push(F[j][l]);
-            }
-        }
         for (int j = 0; j < n; j++) {
             for(int l = 0; l < m; l++) {
                 pop();
+            }
+        }
+
+        for (int j = 0; j < nx; j++) {
+            for(int l = 0; l < m; l++) {
+                //println(j + " " + l);
+                push(F[j][l]);
             }
         }
     }

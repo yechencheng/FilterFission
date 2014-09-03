@@ -1,6 +1,6 @@
 TARGET  = sar
 SOURCES = SAR.str genRawSAR.str FFT.str Statics.str Utils.str
-BACKEND = -u 1 --cluster 4
+BACKEND = -u 0 --cluster 8
 # -asciifileio -simpleC
 
 OUTFILE = image
