@@ -18,11 +18,11 @@ void->void pipeline FFT5() {
     add Drop();
   }
 
-float->void filter Drop(){
-  work pop 1 {
-    pop();
+  float->void filter Drop(){
+    work pop 1 {
+      pop();
+    }
   }
-}
   float->float pipeline Fused_CombineDFT(int N){
     int m = 2;
     int j = 2;
@@ -221,56 +221,96 @@ float->float filter CombineDFT2(int n, int m) {
 
 //m : the size of last level, n : the size of current level, ts : the ts size of last level, should be 2^x, x>=1
 float->float filter CombineDFT3Tiling(int n, int m, int ts){
-    float wn_r, wn_i;
-    int[m/n] flag;
-    float w_r = 1;
-    float w_i = 0;
-    float[2*m] results;
-    float[2*m] data;
+  float wn_r, wn_i;
 
-    int left, right;
-    init {
-      wn_r = (float)cos(2 * 3.141592654 / n);
-      wn_i = (float)sin(2 * 3.141592654 / n);
+  init {
+    wn_r = (float)cos(2 * 3.141592654 / n);
+    wn_i = (float)sin(2 * 3.141592654 / n);
+  }
+
+  work push 2*m/n*m pop 2*m {
+      float w_r = 1;
+  float w_i = 0;
+  float[2*m] results;
+  float[2*m] data;
+    for(int i = 0; i < 2*m; i++)
+      data[i] = pop();
+
+    for(int t = 0; t < m; t += 2*n){
+      for(int i = t; i < t+n; i += 2){
+        float y0_r = data[i];
+        float y0_i = data[i+1];
+
+        float y1_r = data[n + i];
+        float y1_i = data[n + i + 1];
+
+        float y1w_r = y1_r * w_r - y1_i * w_i;
+        float y1w_i = y1_r * w_i + y1_i * w_r;
+
+        results[i] = y0_r + y1w_r;
+        results[i + 1] = y0_i + y1w_i;
+
+        results[n + i] = y0_r - y1w_r;
+        results[n + i + 1] = y0_i - y1w_i;
+
+        float w_r_next = w_r * wn_r - w_i * wn_i;
+        float w_i_next = w_r * wn_i + w_i * wn_r;
+        w_r = w_r_next;
+        w_i = w_i_next;
+      }
     }
 
-    work push 2*m*ts pop 2*m {
-      for(int i = 0; i < 2*m; i++)
-        data[i] = pop();
-
-      for(int t = 0; t < m; t += 2*n){
-        for(int i = t; i < t+n; i += 2){
-          float y0_r = data[i];
-          float y0_i = data[i+1];
-
-          float y1_r = data[n + i];
-          float y1_i = data[n + i + 1];
-
-          float y1w_r = y1_r * w_r - y1_i * w_i;
-          float y1w_i = y1_r * w_i + y1_i * w_r;
-
-          results[i] = y0_r + y1w_r;
-          results[i + 1] = y0_i + y1w_i;
-
-          results[n + i] = y0_r - y1w_r;
-          results[n + i + 1] = y0_i - y1w_i;
-
-          float w_r_next = w_r * wn_r - w_i * wn_i;
-          float w_i_next = w_r * wn_i + w_i * wn_r;
-          w_r = w_r_next;
-          w_i = w_i_next;
+    for(int i = 0; i < m; i+=ts){
+      for(int j = i; j < i+ts; j++){
+        for(int k = 0; k < m/n; k++){
+          push(results[(j^k)*n*2]);
+          push(results[(j^k)*n*2+1]);
         }
       }
-
-      for(int i = 0; i < 2*m; i += ts){
-        for(int j = i; j < i+ts; j++){
-          for(int k = 0; k < m; k+=n)
-            push(results[j^k]);
-        }
-      }
+    }
   }
 }
 
+float->float filter CombineDFT4(int n){
+  float wn_r, wn_i;
+  
+  init {
+    wn_r = (float)cos(2 * 3.141592654 / n);
+    wn_i = (float)sin(2 * 3.141592654 / n);
+  }
+  work pop 2*n push n{
+    float w_r = 1;
+  float w_i = 0;
+  float[2*n] results;
+  float[2*n] data;
+    for(int i = 0; i < 2*n; i++)
+      data[i] = pop();
+
+    for (int i = 0; i < 2*n; i += 4)
+    {
+      float y0_r = data[i];
+      float y0_i = data[i+1];
+
+      float y1_r = data[i+2];
+      float y1_i = data[i+3];
+
+      float y1w_r = y1_r * w_r - y1_i * w_i;
+      float y1w_i = y1_r * w_i + y1_i * w_r;
+
+      results[i/2] = y0_r + y1w_r;
+      results[i/2+1] = y0_i + y1w_i;
+
+      float w_r_next = w_r * wn_r - w_i * wn_i;
+      float w_i_next = w_r * wn_i + w_i * wn_r;
+      w_r = w_r_next;
+      w_i = w_i_next;
+    }
+
+    for (int i = 0; i < n; i++){
+      push(results[i]);
+    }
+  }
+}
 float->float filter Pass(int x){
   init{
     println(x);
@@ -282,24 +322,20 @@ float->float filter Pass(int x){
 float->float pipeline PrimTilingDFT(int m){
   int tileDepth = 4;
   int upper = 1 << (tileDepth+1);
-  //int tileAmount = 3;
   int tileSize = 1 << 2;
 
   for(int i = 2; i < m; i *= upper){
     int x = i * upper;
-    add Pass(i);
-    
     if(x >= m){
-      while(x < m){
-        add CombineDFT1(x);
-        x *= 2;
+      for(int j = i; j < m; j *= 2){
+        add CombineDFT1(j);
       }
       break;
     }
     else{
-      add CombineDFT3Tiling(i, x, tileSize);
+      add CombineDFT3Tiling(i, x/2, tileSize);
       for(int j = upper / 2; j > 1; j /= 2)
-        add CombineDFT1(j*tileSize);
+        add CombineDFT4(tileSize);
     }
   }
 }
